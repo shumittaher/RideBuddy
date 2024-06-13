@@ -9,9 +9,6 @@ from .models import User
 
 # Create your views here.
 
-def index(request):
-    return render(request, "index.html")
-
 def login_view(request):
 
     if request.method == "POST":
@@ -61,3 +58,12 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "register.html")
+
+def index(request):
+    return render(request, "index.html")
+
+def make_trip(request):
+    return render(request, "make_trip.html")
+
+def find_trip(request):
+    return render(request, "find_trip.html")
