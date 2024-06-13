@@ -7,8 +7,6 @@ from django.db import models
 class User(AbstractUser):
     pass
 
-from django.db import models
-
 class Locations(models.Model):
     LOCATION_TYPES = (
         ('school', 'School'),
