@@ -1,7 +1,8 @@
 function fetchActiveRoute() {
 
-    let activeroute = location.pathname  
+    let activeroute = location.pathname
 
+    console.log(activeroute)
     return (activeroute)
     
 }
@@ -13,6 +14,8 @@ function updateActiveStatus() {
     
     for (let index = 0; index < links.length-1; index++) {
         
+        console.log(links[index].pathname)
+
         if (links[index].pathname==activeRoute) {
             links[index].classList.add("active")
             links[index].ariaCurrent = "page"
