@@ -22,4 +22,9 @@ class Locations(models.Model):
 
     
 class Trips(models.Model):
-    destination = models.ForeignKey(Locations, on_delete = models.CASCADE)
+    description_text = models.TextField()
+    origin = models.ForeignKey(Locations, on_delete = models.CASCADE, related_name = 'start_point')
+    destination = models.ForeignKey(Locations, on_delete = models.CASCADE, related_name = 'end_point')
+    departure_time = models.TimeField()
+    open_seats = models.IntegerField()
+    valid_till = models.DateField()
