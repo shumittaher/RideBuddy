@@ -81,7 +81,7 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = "RideSharing.RideUser"
+AUTH_USER_MODEL = "RideSharing.User"
 
 
 # Password validation
