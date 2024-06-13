@@ -1,0 +1,7 @@
+.boxes {
+    padding: 2rem;
+}
+
+.boxes > h2 {
+    margin-bottom: 2rem;
+}
