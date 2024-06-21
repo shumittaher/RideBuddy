@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-
+from .forms import TripsForm
 
 from .models import User
 
@@ -63,7 +63,9 @@ def index(request):
     return render(request, "index.html")
 
 def make_trip(request):
-    return render(request, "make_trip.html")
+    return render(request, "make_trip.html", {
+        'trip_form': TripsForm
+    })
 
 def find_trip(request):
     return render(request, "find_trip.html")

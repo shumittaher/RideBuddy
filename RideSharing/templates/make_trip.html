@@ -3,12 +3,49 @@
 {% block body %}
 
 
-<div>
+<div class="d-flex">
 
-    <form>
+    <div class="col-4">
         
+        <ul class="nav flex-column text-end">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Origin</a>
+            </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="#">Destination</a>
+            </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="#">Description</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Start Time</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Seats</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Valid Till</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="fill-area">
+
+    </div>
+
+    <form class="d-none">
+
+        {% csrf_token %}
+
+        {{trip_form}}
+        
+        <input type="submit">
+    
     </form>
 
 </div>

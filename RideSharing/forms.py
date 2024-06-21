@@ -1,8 +1,8 @@
-from .models import Locations
+from .models import Trips
 from django.forms import ModelForm
 
 
-class LocationsForm(ModelForm):
+class TripsForm(ModelForm):
     class Meta:
-        model = Locations
+        model = Trips
         fields = '__all__' 
