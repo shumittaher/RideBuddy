@@ -63,8 +63,11 @@ def index(request):
     return render(request, "index.html")
 
 def make_trip(request):
+
+    inital_form = TripsForm().render("form_snippets/form.html")
+    
     return render(request, "make_trip.html", {
-        'trip_form': TripsForm
+        'trip_form': inital_form
     })
 
 def find_trip(request):

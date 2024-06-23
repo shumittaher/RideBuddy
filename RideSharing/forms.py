@@ -1,8 +1,7 @@
 from .models import Trips
-from django.forms import ModelForm
+from django import forms
 
-
-class TripsForm(ModelForm):
+class TripsForm(forms.ModelForm):
     class Meta:
         model = Trips
 
@@ -15,4 +14,13 @@ class TripsForm(ModelForm):
             'departure_time': 'Start Time',
             'open_seats': 'Number of Open Seats',
             'valid_till': 'Valid Till',
+        }
+
+        widgets = {
+            'origin': forms.Select(attrs={'class':"form-control", 'required': True}),
+            'destination': forms.Select(attrs={'class':"form-control", 'required': True}),
+            'description_text': forms.Textarea(attrs={'class':"form-control", 'placeholder':"Description", 'rows': "7"}),
+            'departure_time': forms.TimeInput(attrs={'class':"form-control", 'placeholder':"Starting Time"}),
+            'open_seats': forms.NumberInput(attrs={'class':"form-control"}),
+            'valid_till': forms.DateInput(attrs={'class':"form-control"}),
         }

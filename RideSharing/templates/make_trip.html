@@ -3,48 +3,15 @@
 {% block body %}
 
 
-<div class="d-flex justify-content-center">
+<div class="text-center">
 
-    <!-- <div class="col-4">
-        
-        <ul class="nav flex-column text-end">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Origin</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">Destination</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">Description</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">Start Time</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">Seats</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">Valid Till</a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="fill-area">
-
-    </div> -->
-
-    <form >
+    <form style="max-width: 700px;" class="mx-auto">
 
         {% csrf_token %}
 
         {{trip_form}}
         
-        <input type="submit">
+        <input class="btn btn-primary" type="submit">
     
     </form>
 
