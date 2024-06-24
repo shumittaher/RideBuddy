@@ -6,16 +6,15 @@
     margin-bottom: 2rem;
 }
 
-@mixin responsive-border($border-width, $breakpoint: 576px) {
+@mixin responsive-vertical-line($border-width, $breakpoint: 576px) {
     border-right-width: $border-width;
     border-right-style: solid;
   
     @media (max-width: $breakpoint) {
       border-right-width: 0;
     }
-  }
-  
-  .border-responsive {
-    @include responsive-border(1px);
-  }
-  
+}
+
+.vertical-form-devider-line {
+    @include responsive-vertical-line(2px);
+}
