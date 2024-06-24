@@ -19,8 +19,8 @@ class TripsForm(forms.ModelForm):
         widgets = {
             'origin': forms.Select(attrs={'class':"form-control", 'required': True}),
             'destination': forms.Select(attrs={'class':"form-control", 'required': True}),
-            'description_text': forms.Textarea(attrs={'class':"form-control", 'placeholder':"Description", 'rows': "7"}),
-            'departure_time': forms.TimeInput(attrs={'class':"form-control", 'placeholder':"Starting Time"}),
+            'description_text': forms.Textarea(attrs={'class':"form-control", 'rows': "7"}),
+            'departure_time': forms.TimeInput(attrs={'class':"form-control",}),
             'open_seats': forms.NumberInput(attrs={'class':"form-control"}),
             'valid_till': forms.DateInput(attrs={'class':"form-control"}),
         }
