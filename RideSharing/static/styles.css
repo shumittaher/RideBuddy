@@ -1,7 +1,19 @@
 .boxes {
-    padding: 2rem;
+  padding: 2rem;
 }
 
 .boxes > h2 {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
+
+.border-responsive {
+  border-right-width: 1px;
+  border-right-style: solid;
+}
+@media (max-width: 576px) {
+  .border-responsive {
+    border-right-width: 0;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */
