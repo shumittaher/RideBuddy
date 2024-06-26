@@ -64,6 +64,12 @@ def index(request):
 
 def make_trip(request):
 
+    if request.method == "POST":
+
+        new_trip_form = TripsForm(request.POST)
+        if new_trip_form.is_valid():
+            print(new_trip_form.cleaned_data)
+
     inital_form = TripsForm().render("form_snippets/form.html")
     
     return render(request, "make_trip.html", {

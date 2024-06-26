@@ -5,7 +5,7 @@
 
 <div class="text-center">
 
-    <form style="max-width: 700px;" class="mx-auto">
+    <form action="{% url 'make_trip' %}" method="post" style="max-width: 700px;" class="mx-auto">
 
         {% csrf_token %}
 
@@ -49,6 +49,7 @@
             }
 
             valid_till.value = targetDate.toISOString().split('T')[0];
+            valid_till.focus()
         }
         
     })
