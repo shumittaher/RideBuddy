@@ -1,11 +1,10 @@
-from .models import Trips
 from django import forms
+from .models import Trips, Locations
 
 class TripsForm(forms.ModelForm):
     class Meta:
         model = Trips
-
-        fields = '__all__' 
+        fields = '__all__'
 
         labels = {
             'origin': 'Starting Point',
@@ -17,10 +16,10 @@ class TripsForm(forms.ModelForm):
         }
 
         widgets = {
-            'origin': forms.Select(attrs={'class':"form-control", 'required': True}),
-            'destination': forms.Select(attrs={'class':"form-control", 'required': True}),
-            'description_text': forms.Textarea(attrs={'class':"form-control", 'rows': "7"}),
-            'departure_time': forms.TimeInput(attrs={'class':"form-control",}),
-            'open_seats': forms.NumberInput(attrs={'class':"form-control"}),
-            'valid_till': forms.DateInput(attrs={'class':"form-control"}),
+            'origin': forms.Select(attrs={'class': "form-control", 'required': True}),
+            'destination': forms.Select(attrs={'class': "form-control", 'required': True}),
+            'description_text': forms.Textarea(attrs={'class': "form-control", 'rows': "7", 'required': False}),
+            'departure_time': forms.TimeInput(attrs={'class': "form-control",'type': 'time'}),
+            'open_seats': forms.NumberInput(attrs={'class': "form-control"}),
+            'valid_till': forms.DateInput(attrs={'class': "form-control"}),
         }
