@@ -2,9 +2,34 @@ from django import forms
 from .models import Trips, Locations
 
 class TripsForm(forms.ModelForm):
+
+    VALID_FOR_CHOICES = [
+        ('', 'Please Select'),
+        ('monthly', 'Month'),
+        ('quarterly', 'Quarter'),
+        ('semi_annually', 'Half Year'),
+        ('annually', 'Full Year'),
+    ]
+
+
+    valid_for = forms.ChoiceField(
+        choices=VALID_FOR_CHOICES,
+        widget=forms.Select(attrs={'class': "form-control", 'required': True}),
+        label='Valid For'
+    )
+
     class Meta:
         model = Trips
-        fields = '__all__'
+        fields = [
+            'origin',
+            'destination',
+            'description_text',
+            'departure_time',
+            'open_seats',
+            'valid_for',
+            'valid_till',
+        ]
+
 
         labels = {
             'origin': 'Starting Point',
@@ -21,5 +46,5 @@ class TripsForm(forms.ModelForm):
             'description_text': forms.Textarea(attrs={'class': "form-control", 'rows': "7", 'required': False}),
             'departure_time': forms.TimeInput(attrs={'class': "form-control",'type': 'time'}),
             'open_seats': forms.NumberInput(attrs={'class': "form-control"}),
-            'valid_till': forms.DateInput(attrs={'class': "form-control"}),
+            'valid_till': forms.DateInput(attrs={'class': "form-control", 'type': 'date'}),
         }
