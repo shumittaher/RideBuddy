@@ -29,3 +29,4 @@ class Trips(models.Model):
     departure_time = models.TimeField()
     open_seats = models.IntegerField()
     valid_till = models.DateField()
+    trip_owner = models.ForeignKey(User, on_delete = models.CASCADE)

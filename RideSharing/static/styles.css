@@ -16,4 +16,12 @@
   }
 }
 
+.open_seats_container {
+  border-radius: 50%;
+  border: 10px solid;
+  width: 6rem;
+  height: 6rem;
+  font-size: 3rem;
+}
+
 /*# sourceMappingURL=styles.css.map */

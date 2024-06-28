@@ -17,6 +17,23 @@
 
 </div>
 
+<div class="mt-5">
+
+    {% for trip in my_active_trips %}
+    <div class="border shadow d-block p-2 rounded ">
+        <div class="d-flex p-3">
+
+            <div class="border-primary-subtle open_seats_container d-flex justify-content-center align-items-center">
+                <div>
+                    {{trip.open_seats}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+</div>
+
 <script>
 
     document.addEventListener('DOMContentLoaded', ()=>{

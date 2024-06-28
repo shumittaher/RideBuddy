@@ -4,8 +4,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from .forms import TripsForm
+from django.utils import timezone
 
-from .models import User
+
+from .models import User, Trips
 
 # Create your views here.
 
@@ -71,9 +73,12 @@ def make_trip(request):
             TripsForm(new_trip_form.cleaned_data).save()
 
     inital_form = TripsForm().render("form_snippets/form.html")
-    
+    today = timezone.now().date()
+    my_active_trips = Trips.objects.filter(valid_till__gte=today, trip_owner_id = request.user.id)
+
     return render(request, "make_trip.html", {
-        'trip_form': inital_form
+        'trip_form': inital_form,
+        'my_active_trips': my_active_trips
     })
 
 def find_trip(request):
