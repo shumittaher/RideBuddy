@@ -8,8 +8,9 @@
                 </div>
             </div>
         </div>
+
         <div class=" flex-fill px-4">
-            <div class=" d-flex justify-content-between border-bottom border-primary-subtle border-2">
+            <div class="row row-cols-1 gy-3 row-cols-sm-2 border-bottom border-primary-subtle border-2">
 
                 {% include 'component_snippets/location_look.html' with location=trip.origin %}
                 {% include 'component_snippets/location_look.html' with location=trip.destination %}
