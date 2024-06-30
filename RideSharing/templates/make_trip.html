@@ -3,61 +3,13 @@
 {% block body %}
 
 
-<div class="text-center">
+<section class="text-center">
+    {% include 'component_snippets/trip_form.html' %}
+</section>
 
-    <form action="{% url 'make_trip' %}" method="post" style="max-width: 700px;" class="mx-auto">
-
-        {% csrf_token %}
-
-        {{trip_form}}
-        
-        <input class="mt-1 btn btn-primary" type="submit">
-    
-    </form>
-
-</div>
-
-<div class="mt-5">
-
-    {% for trip in my_active_trips %}
-    <div class="border shadow boxes rounded w-100 mx-auto d-flex justify-content-center align-items-center">
-
-        <div class="">
-            <div class="border-primary-subtle open_seats_container d-flex justify-content-center align-items-center">
-                <div>
-                    {{trip.open_seats}}
-                </div>
-            </div>
-        </div>
-        <div class=" flex-fill px-4">
-            <div class=" d-flex justify-content-between border-bottom border-primary-subtle border-2">
-                <div>
-                    <h4>
-                        {{trip.origin.location_name}}
-                    </h4>
-                    <h6>
-                        {{trip.origin.location_area}}
-                    </h6>
-                </div>
-                <div>
-                    <h4>
-                        {{trip.destination.location_name}}
-                    </h4>
-                    <h6>
-                        {{trip.destination.location_area}}
-                    </h6>
-                </div>
-            </div>
-            <div class="mt-1">
-               <h6>
-                    Departure Time: {{trip.departure_time}}
-               </h6>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-    
-</div>
+<section class="mt-5">
+    {% include 'component_snippets/trips_list.html' %}
+</section>
 
 <script>
 

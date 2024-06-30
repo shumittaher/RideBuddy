@@ -1,0 +1,9 @@
+<form action="{% url 'make_trip' %}" method="post" style="max-width: 700px;" class="mx-auto">
+
+    {% csrf_token %}
+
+    {{trip_form}}
+    
+    <input class="mt-1 btn btn-primary" type="submit">
+
+</form>
