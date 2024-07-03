@@ -2,6 +2,32 @@
 
 {% block body %}
 
+<section class="text-center">
+
+    <form action="" method="post" style="max-width: 700px;" class="mx-auto">
+
+        {{ search_form }}
+
+        <input class="btn btn-primary btn-lg" type="submit" value="Search">
+    </form>
+
+</section>
+
+<section id="search_results"> 
+</section>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+
+        
+        fetch_trips()
+    })
 
 
+    async function fetch_trips(){
+        const resposne = await fetch('give_trips')
+    }
+
+</script>
 {% endblock %}

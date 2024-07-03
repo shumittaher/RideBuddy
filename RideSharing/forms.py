@@ -48,3 +48,17 @@ class TripsForm(forms.ModelForm):
             'open_seats': forms.NumberInput(attrs={'class': "form-control"}),
             'valid_till': forms.DateInput(attrs={'class': "form-control", 'type': 'date'}),
         }
+
+
+class LocationSearchForm(forms.ModelForm):
+
+    class Meta:
+        model = Locations
+        fields = ['location_area',]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['location_area'] = forms.ChoiceField(
+            choices=[('','Please Select')] + [(loc.location_area, loc.location_area) for loc in Locations.objects.all()],
+            widget=forms.Select(attrs={'class': 'form-control', 'id': 'location-area-searchbox'})
+        )

@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.urls import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from .forms import TripsForm
+from .forms import TripsForm, LocationSearchForm
 from django.utils import timezone
+from django.core.serializers import serialize
+
 
 
 from .models import User, Trips
@@ -82,4 +84,16 @@ def make_trip(request):
     })
 
 def find_trip(request):
-    return render(request, "find_trip.html")
+
+    search_form = LocationSearchForm().render("form_snippets/form.html")
+
+    return render(request, "find_trip.html", {
+        'search_form': search_form
+    })
+
+def give_trips(request):
+
+    queryset  = Trips.objects.all()
+    data = serialize('json', queryset)
+
+    return JsonResponse(data, safe=False)
