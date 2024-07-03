@@ -5,7 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from .forms import TripsForm, LocationSearchForm
 from django.utils import timezone
-from django.core.serializers import serialize
+from django.template.loader import render_to_string
+
 
 
 
@@ -87,13 +88,15 @@ def find_trip(request):
 
     search_form = LocationSearchForm().render("form_snippets/form.html")
 
+    all_trips = Trips.objects.all()
+
     return render(request, "find_trip.html", {
-        'search_form': search_form
+        'search_form': search_form,
+        'all_trips' : all_trips
     })
 
 def give_trips(request):
 
     queryset  = Trips.objects.all()
-    data = serialize('json', queryset)
-
-    return JsonResponse(data, safe=False)
+    rendered_trips = render_to_string('component_snippets/trips_list.html', {'trips': queryset})
+    return JsonResponse({'rendered_trips': rendered_trips})
