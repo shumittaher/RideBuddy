@@ -20,20 +20,21 @@
 
 <script>
 
+    const search_form_area = document.getElementById('location-area-searchbox')
+    const searchResults = document.getElementById('search_results');
+
     document.addEventListener('DOMContentLoaded', ()=>{
-
-        const search_form_area = document.getElementById('location-area-searchbox')
-        search_form_area.addEventListener('change', handle_searcharea_change)
-
+        search_form_area.addEventListener('change', ()=>handle_searcharea_change(search_form_area.value))
     })
 
-    function handle_searcharea_change() {
-        fetch_trips()
+    function handle_searcharea_change(area_name) {
+        console.log(search_form_area, area_name)
+        fetch_trips(area_name)
     }
 
-    async function fetch_trips(){
+    async function fetch_trips(area_name){
 
-        const response = await fetch('give_trips')
+        const response = await fetch(`give_trips/${area_name}`)
         if (response.ok) {
             const updatedTrips = await response.json();
             updateTripsList(updatedTrips.rendered_trips); 
@@ -44,10 +45,7 @@
     }
 
     function updateTripsList(trips) {
-
-        const searchResults = document.getElementById('search_results');
         searchResults.innerHTML = trips
-   
     }
 
 </script>

@@ -95,8 +95,8 @@ def find_trip(request):
         'all_trips' : all_trips
     })
 
-def give_trips(request):
+def give_trips(request, origin_area):
 
-    queryset  = Trips.objects.all()
+    queryset  = Trips.objects.filter(origin = origin_area)
     rendered_trips = render_to_string('component_snippets/trips_list.html', {'trips': queryset})
     return JsonResponse({'rendered_trips': rendered_trips})
