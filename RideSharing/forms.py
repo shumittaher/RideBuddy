@@ -59,6 +59,6 @@ class LocationSearchForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['location_area'] = forms.ChoiceField(
-            choices=[('','Please Select')] + [(loc.id, loc.location_area) for loc in Locations.objects.all()],
+            choices=[('','All Locations')] + [(loc.id, loc.location_area) for loc in Locations.objects.all()],
             widget=forms.Select(attrs={'class': 'form-control', 'id': 'location-area-searchbox'})
         )

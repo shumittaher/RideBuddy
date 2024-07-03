@@ -27,14 +27,13 @@
         search_form_area.addEventListener('change', ()=>handle_searcharea_change(search_form_area.value))
     })
 
-    function handle_searcharea_change(area_name) {
-        console.log(search_form_area, area_name)
-        fetch_trips(area_name)
+    function handle_searcharea_change(area_code) {
+        fetch_trips(area_code)
     }
 
-    async function fetch_trips(area_name){
+    async function fetch_trips(area_code){
 
-        const response = await fetch(`give_trips/${area_name}`)
+        const response = await fetch(`give_trips?origin_area=${area_code}`)
         if (response.ok) {
             const updatedTrips = await response.json();
             updateTripsList(updatedTrips.rendered_trips); 

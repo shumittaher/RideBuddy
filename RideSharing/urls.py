@@ -9,5 +9,5 @@ urlpatterns = [
     path("make_trip", views.make_trip, name="make_trip"),
     path("find_trip", views.find_trip, name="find_trip"),
     # fetch queries
-    path("give_trips/<str:origin_area>", views.give_trips)
+    path("give_trips", views.give_trips)
 ]
