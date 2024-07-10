@@ -30,3 +30,11 @@ class Trips(models.Model):
     open_seats = models.IntegerField()
     valid_till = models.DateField()
     trip_owner = models.ForeignKey(User, on_delete = models.CASCADE)
+
+class Spot_Bookings(models.Model):
+    trip = models.ForeignKey(Trips, on_delete=models.CASCADE)
+    requester = models.ForeignKey(User, on_delete = models.CASCADE)
+    spots_requested = models.IntegerField()
+    requester_comments = models.CharField(max_length=255)
+    approval_status = models.BooleanField()
+

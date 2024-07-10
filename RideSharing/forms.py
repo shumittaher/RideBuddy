@@ -1,5 +1,5 @@
 from django import forms
-from .models import Trips, Locations
+from .models import Trips, Locations, Spot_Bookings
 
 class TripsForm(forms.ModelForm):
 
@@ -49,6 +49,28 @@ class TripsForm(forms.ModelForm):
             'valid_till': forms.DateInput(attrs={'class': "form-control", 'type': 'date'}),
         }
 
+class BookingRequestForm(forms.ModelForm):
+
+    class Meta:
+        model = Spot_Bookings
+
+        exclude = ['approval_status']
+
+        widgets= {
+            'trip': forms.HiddenInput(),
+            'requester': forms.HiddenInput(),
+            'spots_requested': forms.HiddenInput(),
+            'requester_comments': forms.Textarea(
+                attrs={
+                    "class": "form-control", 
+                    "rows": 3,
+                    "maxlength": 255
+                })
+        }
+
+        labels ={
+            'requester_comments': 'Additional Comments',
+        }
 
 class LocationSearchForm(forms.ModelForm):
 

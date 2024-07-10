@@ -3,14 +3,11 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from .forms import TripsForm, LocationSearchForm
 from django.utils import timezone
 from django.template.loader import render_to_string
 
-
-
-
 from .models import User, Trips
+from .forms import TripsForm, LocationSearchForm, BookingRequestForm
 
 # Create your views here.
 
@@ -87,12 +84,15 @@ def make_trip(request):
 def find_trip(request):
 
     search_form = LocationSearchForm().render("form_snippets/form.html")
+    booking_request_form = BookingRequestForm(None)
+    # .render("form_snippets/form.html")
 
     all_trips = Trips.objects.all()
 
     return render(request, "find_trip.html", {
         'search_form': search_form,
-        'all_trips' : all_trips
+        'all_trips' : all_trips,
+        'booking_request_form' : booking_request_form
     })
 
 def give_trips(request):
@@ -107,3 +107,10 @@ def give_trips(request):
 
         rendered_trips = render_to_string('component_snippets/trips_list.html', {'trips': queryset})
         return JsonResponse({'rendered_trips': rendered_trips})
+    
+def booking_request(request):
+
+    if request.method == 'POST':
+        print(request.POST)
+        return HttpResponseRedirect(reverse("index"))
+
