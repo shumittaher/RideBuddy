@@ -6,8 +6,11 @@ from django.db import IntegrityError
 from django.utils import timezone
 from django.template.loader import render_to_string
 
+import json
+
 from .models import User, Trips
-from .forms import TripsForm, LocationSearchForm, BookingRequestForm
+from .forms import TripsForm, LocationSearchForm, BookingRequestCommentBox
+from .utils import add_forms
 
 # Create your views here.
 
@@ -84,15 +87,9 @@ def make_trip(request):
 def find_trip(request):
 
     search_form = LocationSearchForm().render("form_snippets/form.html")
-    booking_request_form = BookingRequestForm(None)
-    # .render("form_snippets/form.html")
-
-    all_trips = Trips.objects.all()
 
     return render(request, "find_trip.html", {
         'search_form': search_form,
-        'all_trips' : all_trips,
-        'booking_request_form' : booking_request_form
     })
 
 def give_trips(request):
@@ -105,12 +102,18 @@ def give_trips(request):
         else:
             queryset = Trips.objects.all()
 
-        rendered_trips = render_to_string('component_snippets/trips_list.html', {'trips': queryset})
+        trips_and_forms = add_forms(queryset, request.user.id)
+
+        rendered_trips = render_to_string('component_snippets/trips_list.html', {'trips': trips_and_forms})
         return JsonResponse({'rendered_trips': rendered_trips})
     
 def booking_request(request):
 
     if request.method == 'POST':
-        print(request.POST)
+        new_booking = json.loads(request.body)
+        print(new_booking)
+        for key, value in new_booking.items():
+            print(f"{key}: {value}")
+        # if new_booking.is_valid():
         return HttpResponseRedirect(reverse("index"))
 

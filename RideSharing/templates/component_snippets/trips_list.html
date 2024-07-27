@@ -7,7 +7,7 @@
                 
                 <div class="border-primary-subtle open_seats_container d-flex justify-content-center align-items-center">
                     <div class="" style="color: var(--bs-purple);">
-                        {{trip.open_seats}}
+                        {{trip.trip.open_seats}}
                     </div>
                 
                     <svg viewBox="0 0 200 200" class="position-absolute" style="overflow:visible; z-index: 1; bottom: -12%; left: -6%; width: 112%; height: 112%;">
@@ -27,17 +27,17 @@
         <div class=" flex-fill px-4">
             <div class="row row-cols-1 gy-3 row-cols-sm-2 border-bottom border-primary-subtle border-2">
 
-                {% include 'component_snippets/location_look.html' with location=trip.origin type='Origin' %}
-                {% include 'component_snippets/location_look.html' with location=trip.destination type='Destination' %}
+                {% include 'component_snippets/location_look.html' with location=trip.trip.origin type='Origin' %}
+                {% include 'component_snippets/location_look.html' with location=trip.trip.destination type='Destination' %}
                 
             </div>
             <div class="mt-3 d-sm-flex  justify-content-between">
                 <div>
                     <h6>
-                        Departure Time: <span class="text-primary">{{trip.departure_time}}</span>
+                        Departure Time: <span class="text-primary">{{trip.trip.departure_time}}</span>
                     </h6>
                     <h6>
-                        Trip Owner: <span class="text-primary">{{trip.trip_owner}}</span>
+                        Trip Owner: <span class="text-primary">{{trip.trip.trip_owner}}</span>
                     </h6>
                 </div>
 
@@ -51,8 +51,14 @@
         <div class="mt-3">
             Your email address and phone number will be shared with the trip owner. You can write any additional informaiton you would like to share below
             <form class="mt-3">
-                {{booking_request_form}}
-                <button type="submit" onclick="handle_trip_req(event)" class="mt-1 btn btn-primary d-block mx-auto" type="button">Request a Spot</button>
+
+                <!-- <input hidden name="trip" value="{{trip.id}}">
+                <input hidden name="requester" value="{{user.id}}"> -->
+                {% include 'form_snippets/form.html' with form=trip.form %}
+                <button type="submit" onclick="handle_trip_req(event)" 
+                class="mt-1 btn btn-primary d-block mx-auto" type="button">
+                    Request a Spot
+                </button>
             </form>
         </div>
     </div>
@@ -61,12 +67,14 @@
 <script>
     function handle_trip_req(event) {
 
-        const button = event.target
-        const comment_box = button.parentNode.querySelector('textarea');
-
-        send_post(comment_box.value)
-        console.log(comment_box.value.length)
-
+        const form = event.target.parentNode
+        const formData = new FormData(form)
+        const formObject = {};
+        formData.forEach((value, key) => {
+            formObject[key] = value;
+        });
+        console.log(formObject)
+        send_post(formObject)
     }
 
     async function send_post(booking_data) {

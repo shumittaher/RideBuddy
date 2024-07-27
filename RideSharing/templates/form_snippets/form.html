@@ -1,6 +1,12 @@
-{% for field in form %}
+{% for field in form.hidden_fields %}
+    {{ field }}
+{% endfor %}
+
+
+{% for field in form.visible_fields %}
 
 <div class="form-group row mb-3 mb-sm-0">
+
     <div class="py-sm-1 col-sm-4 text-start text-sm-end vertical-form-devider-line border-primary-subtle">
 
         <label for="{{ field.auto_id }}" class="form-label text-primary">
@@ -15,5 +21,6 @@
         
     </div>
 </div>
+
     
 {% endfor %}
