@@ -33,16 +33,9 @@ class Trips(models.Model):
 
 class Spot_Bookings(models.Model):
 
-    SPOTS_CHOICES = [
-        (1, '1'),
-        (2, '2'),
-        (3, '3'),
-        (4, '4'),
-    ]
-
     trip = models.ForeignKey(Trips, on_delete=models.CASCADE)
     requester = models.ForeignKey(User, on_delete = models.CASCADE)
-    spots_requested = models.PositiveSmallIntegerField(choices=SPOTS_CHOICES)
+    spots_requested = models.PositiveSmallIntegerField()
     requester_comments = models.CharField(max_length=255)
     approval_status = models.BooleanField()
 

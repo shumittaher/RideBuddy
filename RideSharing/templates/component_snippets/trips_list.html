@@ -52,10 +52,9 @@
             Your email address and phone number will be shared with the trip owner. You can write any additional informaiton you would like to share below
             <form class="mt-3">
 
-                <!-- <input hidden name="trip" value="{{trip.id}}">
-                <input hidden name="requester" value="{{user.id}}"> -->
                 {% include 'form_snippets/form.html' with form=trip.form %}
-                <button type="submit" onclick="handle_trip_req(event)" 
+
+                <button onclick="handle_trip_req(event)" 
                 class="mt-1 btn btn-primary d-block mx-auto" type="button">
                     Request a Spot
                 </button>
@@ -64,34 +63,4 @@
     </div>
 </div>
 
-<script>
-    function handle_trip_req(event) {
-
-        const form = event.target.parentNode
-        const formData = new FormData(form)
-        const formObject = {};
-        formData.forEach((value, key) => {
-            formObject[key] = value;
-        });
-        console.log(formObject)
-        send_post(formObject)
-    }
-
-    async function send_post(booking_data) {
-
-        event.preventDefault(); 
-
-        const csrfToken = '{{ csrf_token }}'
-                
-        const response = await fetch('booking_request', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,
-            },
-            body: JSON.stringify({ booking_request: booking_data })
-        })
-    }
-
-</script>
 {% endfor %}

@@ -54,7 +54,7 @@ class BookingRequestCommentBox(forms.ModelForm):
     class Meta:
 
         model = Spot_Bookings
-        exclude = ['approval_status']
+        fields = '__all__' 
 
         labels = {
             'requester_comments' : 'Additional Comments',
@@ -64,11 +64,8 @@ class BookingRequestCommentBox(forms.ModelForm):
         widgets={
             'trip': forms.HiddenInput(),
             'requester': forms.HiddenInput(),
-            'spots_requested': forms.Select(
-            attrs={
-                    "class": "form-control"
-            }
-            ),
+            'approval_status': forms.HiddenInput(),
+           
             'requester_comments' : forms.Textarea(
             attrs={
                     "class": "form-control", 
@@ -81,7 +78,15 @@ class BookingRequestCommentBox(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         open_seats = kwargs.pop('open_seats', 4)
         super().__init__(*args, **kwargs) 
-        self.fields['spots_requested'].choices = [(i, str(i)) for i in range(1, open_seats + 1)]
+        self.fields['spots_requested'] = forms.ChoiceField(
+            choices=[(i, str(i)) for i in range(1, open_seats + 1)],
+            widget=forms.Select(
+                attrs={
+                    "class": "form-control"
+                }
+            )
+        )
+
 
         
 class LocationSearchForm(forms.ModelForm):

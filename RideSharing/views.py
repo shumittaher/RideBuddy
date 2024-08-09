@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 
 import json
 
-from .models import User, Trips
+from .models import User, Trips, Spot_Bookings
 from .forms import TripsForm, LocationSearchForm, BookingRequestCommentBox
 from .utils import add_forms
 
@@ -110,10 +110,20 @@ def give_trips(request):
 def booking_request(request):
 
     if request.method == 'POST':
-        new_booking = json.loads(request.body)
-        print(new_booking)
-        for key, value in new_booking.items():
-            print(f"{key}: {value}")
-        # if new_booking.is_valid():
+        new_booking_data = json.loads(request.body)['booking_request']
+
+        new_booking = BookingRequestCommentBox(new_booking_data)
+       
+        # new_booking = Spot_Bookings(
+        #     trip = new_booking_data["trip"],
+        #     requester = new_booking_data["requester"],
+        #     spots_requested = new_booking_data["spots_requested"],
+        #     requester_comments = new_booking_data["requester_comments"],
+        #     approval_status = 0,
+        # )
+
+        if new_booking.is_valid():
+            new_booking.save()
+            
         return HttpResponseRedirect(reverse("index"))
 

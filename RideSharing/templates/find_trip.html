@@ -14,8 +14,6 @@
 
 <section id="search_results" class="mt-5"> 
 
-    <!-- {% include 'component_snippets/trips_list.html' with trips=all_trips %} -->
-
 </section>
 
 <script>
@@ -46,6 +44,34 @@
 
     function updateTripsList(trips) {
         searchResults.innerHTML = trips
+    }
+
+    function handle_trip_req(event) {
+
+        const form = event.target.parentNode
+        const formData = new FormData(form)
+        const formObject = {};
+        formData.forEach((value, key) => {
+            formObject[key] = value;
+        });
+        send_post(formObject)
+
+    }
+
+    async function send_post(booking_data) {
+
+        event.preventDefault(); 
+
+        const csrfToken = '{{ csrf_token }}'
+                
+        const response = await fetch('booking_request', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify({ booking_request: booking_data })
+        })
     }
 
 </script>
