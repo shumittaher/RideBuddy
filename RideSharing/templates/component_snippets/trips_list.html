@@ -1,5 +1,5 @@
 {% for trip in trips %}
-<div class="border shadow boxes rounded w-100 mx-auto ">
+<div class="border shadow boxes rounded w-100 mx-auto mb-2">
     <div class="d-flex justify-content-center">
 
         <div class="mx-2">
@@ -41,13 +41,14 @@
                     </h6>
                 </div>
 
-               <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#booking_form" aria-expanded="false" aria-controls="collapseExample">
+               <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#booking_form_{{trip.trip.id}}" aria-expanded="false" aria-controls="collapseExample">
                 Book a Spot
                </button>
             </div>
         </div>
     </div>
-    <div class="collapse" id="booking_form">
+    {% if trip.form %}
+    <div class="collapse" id="booking_form_{{trip.trip.id}}">
         <div class="mt-3">
             Your email address and phone number will be shared with the trip owner. You can write any additional informaiton you would like to share below
             <form class="mt-3">
@@ -61,6 +62,7 @@
             </form>
         </div>
     </div>
+    {% endif %}
 </div>
 
 {% endfor %}

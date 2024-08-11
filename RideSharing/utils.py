@@ -1,6 +1,6 @@
 from .forms import BookingRequestCommentBox
 
-def add_forms(trips, id):
+def add_forms(trips, id, addform):
 
     trips_forms= []
 
@@ -11,6 +11,10 @@ def add_forms(trips, id):
         }, open_seats = trip.open_seats
         )
 
-        trips_forms.append({'trip': trip, 'form': form})
+        if addform:
+            trips_forms.append({'trip': trip, 'form': form})
+        else:
+            trips_forms.append({'trip': trip})
 
     return trips_forms
+

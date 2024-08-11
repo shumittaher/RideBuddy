@@ -28,6 +28,7 @@ class TripsForm(forms.ModelForm):
             'open_seats',
             'valid_for',
             'valid_till',
+            'trip_owner'
         ]
 
 
@@ -47,6 +48,7 @@ class TripsForm(forms.ModelForm):
             'departure_time': forms.TimeInput(attrs={'class': "form-control",'type': 'time'}),
             'open_seats': forms.NumberInput(attrs={'class': "form-control"}),
             'valid_till': forms.DateInput(attrs={'class': "form-control", 'type': 'date'}),
+            'trip_owner': forms.HiddenInput()
         }
 
 class BookingRequestCommentBox(forms.ModelForm):

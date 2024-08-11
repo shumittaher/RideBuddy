@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
@@ -70,15 +70,21 @@ def index(request):
 
 def make_trip(request):
 
+    active_user = get_object_or_404(User, pk = request.user.id)
+
     if request.method == "POST":
 
         new_trip_form = TripsForm(request.POST)
         if new_trip_form.is_valid():
+            new_trip_form.cleaned_data["trip_owner"] = active_user
             TripsForm(new_trip_form.cleaned_data).save()
 
-    inital_form = TripsForm().render("form_snippets/form.html")
+    inital_form = TripsForm(initial={
+        'trip_owner' : active_user
+    }).render("form_snippets/form.html")
     today = timezone.now().date()
-    my_active_trips = Trips.objects.filter(valid_till__gte=today, trip_owner_id = request.user.id)
+    trips = Trips.objects.filter(valid_till__gte=today, trip_owner_id = request.user.id)
+    my_active_trips = add_forms(trips, request.user.id, False)
 
     return render(request, "make_trip.html", {
         'trip_form': inital_form,
@@ -103,7 +109,7 @@ def give_trips(request):
         else:
             queryset = Trips.objects.all()
 
-        trips_and_forms = add_forms(queryset, request.user.id)
+        trips_and_forms = add_forms(queryset, request.user.id, True)
 
         rendered_trips = render_to_string('component_snippets/trips_list.html', {'trips': trips_and_forms})
         return JsonResponse({'rendered_trips': rendered_trips})
