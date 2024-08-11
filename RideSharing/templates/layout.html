@@ -33,10 +33,24 @@
 
             {% include 'component_snippets/navbar.html' %}
 
-            <div class="container-lg pt-5">
+            {% if messages %}
+                <ul class="messages" 
+                style="
+                background-color: rgb(var(--bs-success-rgb)); 
+                color: antiquewhite;
+                ">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+                <div class="container-lg pt-5">
+                
                 {% block body %}
 
                 {% endblock %}
+
             </div>
 
             <script src="{% static 'navbar.js' %}"></script>

@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.utils import timezone
 from django.template.loader import render_to_string
+from django.contrib import messages
 
 import json
 
@@ -113,17 +114,13 @@ def booking_request(request):
         new_booking_data = json.loads(request.body)['booking_request']
 
         new_booking = BookingRequestCommentBox(new_booking_data)
-       
-        # new_booking = Spot_Bookings(
-        #     trip = new_booking_data["trip"],
-        #     requester = new_booking_data["requester"],
-        #     spots_requested = new_booking_data["spots_requested"],
-        #     requester_comments = new_booking_data["requester_comments"],
-        #     approval_status = 0,
-        # )
 
         if new_booking.is_valid():
             new_booking.save()
-            
-        return HttpResponseRedirect(reverse("index"))
+            messages.success(request, "Booking request recorded successfully.")
+            return JsonResponse({"status": "Booking data saved"}, status=200)
+
+        else:
+            return JsonResponse({"status": "Invalid booking data"}, status=400)
+
 
