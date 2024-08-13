@@ -10,5 +10,6 @@ urlpatterns = [
     path("find_trip", views.find_trip, name="find_trip"),
     # fetch queries
     path("give_trips", views.give_trips),
+    path("give_bookingreq_forms/<int:trip_id>", views.give_bookingreq_forms),
     path("booking_request", views.booking_request)
 ]

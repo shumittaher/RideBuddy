@@ -1,20 +1,17 @@
 from .forms import BookingRequestCommentBox
+from django.shortcuts import get_object_or_404
+from .models import Trips
 
-def add_forms(trips, id, addform):
 
-    trips_forms= []
+def make_booking_form(trip_id, user_id):
 
-    for trip in trips:
-        form = BookingRequestCommentBox(initial={
-            'trip': trip.id,
-            'requester': id,
+    trip = get_object_or_404(Trips, pk = trip_id)
+
+    form = BookingRequestCommentBox(initial={
+            'trip': trip_id,
+            'requester': user_id,
         }, open_seats = trip.open_seats
-        )
+    )
 
-        if addform:
-            trips_forms.append({'trip': trip, 'form': form})
-        else:
-            trips_forms.append({'trip': trip})
-
-    return trips_forms
+    return form
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
@@ -11,7 +11,7 @@ import json
 
 from .models import User, Trips, Spot_Bookings
 from .forms import TripsForm, LocationSearchForm, BookingRequestCommentBox
-from .utils import add_forms
+from .utils import make_booking_form
 
 # Create your views here.
 
@@ -83,8 +83,7 @@ def make_trip(request):
         'trip_owner' : active_user
     }).render("form_snippets/form.html")
     today = timezone.now().date()
-    trips = Trips.objects.filter(valid_till__gte=today, trip_owner_id = request.user.id)
-    my_active_trips = add_forms(trips, request.user.id, False)
+    my_active_trips = Trips.objects.filter(valid_till__gte=today, trip_owner_id = request.user.id)
 
     return render(request, "make_trip.html", {
         'trip_form': inital_form,
@@ -109,9 +108,11 @@ def give_trips(request):
         else:
             queryset = Trips.objects.all()
 
-        trips_and_forms = add_forms(queryset, request.user.id, True)
-
-        rendered_trips = render_to_string('component_snippets/trips_list.html', {'trips': trips_and_forms})
+        rendered_trips = render_to_string('component_snippets/trips_list.html', {
+            'trips': queryset,
+            'booking_trips': True
+            })
+        
         return JsonResponse({'rendered_trips': rendered_trips})
     
 def booking_request(request):
@@ -129,4 +130,13 @@ def booking_request(request):
         else:
             return JsonResponse({"status": "Invalid booking data"}, status=400)
 
+def give_bookingreq_forms(request, trip_id):
+
+    form = make_booking_form(trip_id, request.user.id)
+
+    rendered_form = render_to_string('component_snippets/booking_request_form.html', {
+        'form': form,
+    })
+
+    return JsonResponse({"rendered_form": rendered_form}, status =200)
 
