@@ -83,7 +83,9 @@
 
     function handle_form_fetch(event) {
         trip_id = (event.target.dataset.targettripid)
-        fetch_bookingreq_forms(trip_id)
+        if (!event.target.matches('.collapsed')){
+            fetch_bookingreq_forms(trip_id)
+        }
     }
 
     async function fetch_bookingreq_forms(trip_id) {

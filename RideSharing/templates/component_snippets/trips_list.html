@@ -42,7 +42,11 @@
                 </div>
 
                 <button class="btn btn-primary" type="button" 
-                    onclick="handle_form_fetch(event)"
+                    
+                    {% if booking_trips %}
+                        onclick="handle_form_fetch(event)"
+                    {% endif %}
+
                     data-bs-toggle="collapse" 
                     data-bs-target="#form_space_{{trip.id}}" 
                     data-targettripid="{{trip.id}}" 
@@ -58,7 +62,13 @@
     </div>
     
     <div class="collapse" id="form_space_{{trip.id}}">
-        <div class="w-100"> Loading </div>
+        <div class="rounded m-2 w-100 d-flex justify-content-center align-items-center" 
+        style="
+        height: 16.5rem; 
+        background-color: darkgray; 
+        color: white;
+        font-size: xx-large;
+        "> Loading </div>
     </div>
 
 </div>
