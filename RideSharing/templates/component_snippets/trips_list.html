@@ -45,6 +45,8 @@
                     
                     {% if booking_trips %}
                         onclick="handle_form_fetch(event)"
+                    {% else %}
+                        onclick="handle_view_details(event)"
                     {% endif %}
 
                     data-bs-toggle="collapse" 
@@ -62,7 +64,7 @@
     </div>
     
     <div class="collapse" id="form_space_{{trip.id}}">
-        <div class="rounded m-2 w-100 d-flex justify-content-center align-items-center" 
+        <div class="rounded m-2 d-flex justify-content-center align-items-center" 
         style="
         height: 16.5rem; 
         background-color: darkgray; 
