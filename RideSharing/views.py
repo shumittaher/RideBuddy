@@ -142,4 +142,12 @@ def give_bookingreq_forms(request, trip_id):
 
 def give_bookingreqs_list(request, trip_id):
 
-    return JsonResponse({"rendered_form": 'list'}, status = 200)
+    underlying_trip = Trips.objects.get(id = trip_id)
+
+    bookingreq_list = Spot_Bookings.objects.filter(trip = underlying_trip)
+
+    rendered_form = render_to_string('component_snippets/bookingreq_list.html', {
+        'bookingreq_list': bookingreq_list,
+    })
+
+    return JsonResponse({"rendered_form": rendered_form}, status = 200)
