@@ -44,9 +44,9 @@
                 <button class="btn btn-primary" type="button" 
                     
                     {% if booking_trips %}
-                        onclick="handle_form_fetch(event)"
+                        onclick="handle_form_fetch(event, true)"
                     {% else %}
-                        onclick="handle_view_details(event)"
+                        onclick="handle_form_fetch(event, false)"
                     {% endif %}
 
                     data-bs-toggle="collapse" 

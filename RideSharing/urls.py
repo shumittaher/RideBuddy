@@ -11,5 +11,6 @@ urlpatterns = [
     # fetch queries
     path("give_trips", views.give_trips),
     path("give_bookingreq_forms/<int:trip_id>", views.give_bookingreq_forms),
+    path("give_bookingreqs_list/<int:trip_id>", views.give_bookingreqs_list),
     path("booking_request", views.booking_request)
 ]

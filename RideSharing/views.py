@@ -138,5 +138,8 @@ def give_bookingreq_forms(request, trip_id):
         'form': form,
     })
 
-    return JsonResponse({"rendered_form": rendered_form}, status =200)
+    return JsonResponse({"rendered_form": rendered_form}, status = 200)
 
+def give_bookingreqs_list(request, trip_id):
+
+    return JsonResponse({"rendered_form": 'list'}, status = 200)

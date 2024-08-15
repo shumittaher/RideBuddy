@@ -18,6 +18,8 @@
 
 <script>
 
+// location area search box functionality
+
     const search_form_area = document.getElementById('location-area-searchbox');
     const searchResults = document.getElementById('search_results');
 
@@ -46,6 +48,10 @@
     function updateTripsList(trips) {
         searchResults.innerHTML = trips
     }
+
+// location area search box functionality -- end
+
+// sending booking request to server functionality
 
     function handle_trip_req(event) {
 
@@ -81,24 +87,7 @@
         }
     }
 
-    function handle_form_fetch(event) {
-        trip_id = (event.target.dataset.targettripid)
-        if (!event.target.matches('.collapsed')){
-            fetch_bookingreq_forms(trip_id)
-        }
-    }
-
-    async function fetch_bookingreq_forms(trip_id) {
-        const response = await fetch(`give_bookingreq_forms/${trip_id}`);
-        if (response.ok) {
-            const data = await response.json();
-            const bookingFormsHtml = data.rendered_form;
-            const targetDiv = document.getElementById(`form_space_${trip_id}`);
-            targetDiv.innerHTML = bookingFormsHtml;
-        } else {
-            console.error('Failed to fetch booking request forms:', response.statusText);
-        }
-    }
+// sending booking request to server functionality - end
 
 </script>
 {% endblock %}
