@@ -14,7 +14,26 @@
 <script>
 
     function handle_bookingReqDelConf(event) {
-            
+
+        const item_id = event.target.dataset.itemId
+        
+        
+
+    }
+
+    async function send_bookingStatUpdate(url, item_id) {
+
+        const response = await fetch(
+            url,
+            {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+        )
+        
     }
 
     document.addEventListener('DOMContentLoaded', ()=>{

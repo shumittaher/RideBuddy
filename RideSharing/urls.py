@@ -13,4 +13,5 @@ urlpatterns = [
     path("give_bookingreq_forms/<int:trip_id>", views.give_bookingreq_forms),
     path("give_bookingreqs_list/<int:trip_id>", views.give_bookingreqs_list),
     path("booking_request", views.booking_request)
+    path("bookingreq_put", views.bookingreq_put)
 ]

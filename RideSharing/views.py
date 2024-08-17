@@ -151,3 +151,6 @@ def give_bookingreqs_list(request, trip_id):
     })
 
     return JsonResponse({"rendered_form": rendered_form}, status = 200)
+
+def bookingreq_put(request):
+    return 
