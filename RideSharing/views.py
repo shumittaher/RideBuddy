@@ -158,5 +158,16 @@ def bookingreq_put(request):
 
     if request.method == 'PUT':
         put_data = json.loads(request.body)
+        req_id = put_data['req_id']
+        save_action = put_data['save_action']
+
+        underlying_booking = get_object_or_404(Spot_Bookings, pk = req_id)
+
+        if save_action:
+            return
+        
+        else:
+            underlying_booking.delete()
+            return JsonResponse({"message": "Delete Successful"}, status = 200)
 
     return 

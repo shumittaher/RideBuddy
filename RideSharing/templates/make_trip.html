@@ -23,12 +23,15 @@
 
     async function send_bookingStatUpdate(req_id, save_action) {            //save_action will be true for save and false for delete 
 
+        const csrf = '{{csrf_token}}'
+
         const response = await fetch(
             'bookingreq_put',
             {
                 method: 'PUT',
                 headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrf
                 },
                 body: JSON.stringify({
                     'req_id' : req_id,
