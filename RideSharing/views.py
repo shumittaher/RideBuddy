@@ -6,6 +6,8 @@ from django.db import IntegrityError
 from django.utils import timezone
 from django.template.loader import render_to_string
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 
 import json
 
@@ -68,6 +70,7 @@ def register(request):
 def index(request):
     return render(request, "index.html")
 
+@login_required(login_url ='/login')
 def make_trip(request):
 
     active_user = get_object_or_404(User, pk = request.user.id)
