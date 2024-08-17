@@ -8,7 +8,6 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-
 import json
 
 from .models import User, Trips, Spot_Bookings
@@ -156,4 +155,8 @@ def give_bookingreqs_list(request, trip_id):
     return JsonResponse({"rendered_form": rendered_form}, status = 200)
 
 def bookingreq_put(request):
+
+    if request.method == 'PUT':
+        put_data = json.loads(request.body)
+
     return 
