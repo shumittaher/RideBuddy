@@ -168,6 +168,4 @@ def bookingreq_put(request):
         
         else:
             underlying_booking.delete()
-            return JsonResponse({"message": "Delete Successful"}, status = 200)
-
-    return 
+            return JsonResponse({"message": "Deleted"}, status = 200) 

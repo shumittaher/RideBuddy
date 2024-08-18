@@ -39,7 +39,38 @@
                 })
             }
         )
+
+        const data = await response.json()
+        if (response.status == 200) {
+
+            const deleteModal = document.getElementById(`deleteModal-${req_id}`)
+            const modal = bootstrap.Modal.getInstance(deleteModal);
+            modal.hide()
+
+            update_deleted_row(`requestrow-${req_id}`)
+        }
         
+    }
+
+    function update_deleted_row(row_id) {
+
+        const requestrow = document.getElementById(row_id)
+            const tds = requestrow.querySelectorAll('td');
+
+            tds.forEach(td => {
+                td.classList.add('text-bg-danger');
+
+                if (td.classList.contains('status')) {
+                    td.textContent = data.message;
+                }
+                    
+                const buttons = td.querySelectorAll('button');
+                buttons.forEach(button => {
+                    button.disabled = true;
+                });
+
+            });
+
     }
 
     document.addEventListener('DOMContentLoaded', ()=>{

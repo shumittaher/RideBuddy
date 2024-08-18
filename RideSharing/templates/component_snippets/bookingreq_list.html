@@ -16,7 +16,7 @@
 
             {% for item in bookingreq_list %}
 
-            <tr>
+            <tr id="requestrow-{{item.id}}">
 
                 <td>
 
@@ -30,7 +30,7 @@
 
                     {{item.requester_comments}}
                 </td>
-                <td>
+                <td class="status">
 
                     {% if item.approval_status %}
 
@@ -43,7 +43,7 @@
                     {% endif %}
                 </td>
 
-                <td>
+                <td class="buttons">
                     <div class="d-flex">
 
                         <button  
@@ -60,7 +60,7 @@
                         </button>
 
                         <div class="modal fade" id="deleteModal-{{item.id}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">  
+                            <div class="modal-dialog modal-dialog-centered">  
                           
                                 <div class="modal-content">
                                     <div class="modal-header">
