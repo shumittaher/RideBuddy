@@ -12,7 +12,7 @@ import json
 
 from .models import User, Trips, Spot_Bookings
 from .forms import TripsForm, LocationSearchForm, BookingRequestCommentBox
-from .utils import make_booking_form
+from .utils import make_booking_form, find_remaining_spots
 
 # Create your views here.
 
@@ -166,10 +166,19 @@ def bookingreq_put(request):
         req_id = put_data['req_id']
         save_action = put_data['save_action']
 
-        underlying_booking = get_object_or_404(Spot_Bookings, pk = req_id)
+        underlying_booking = Spot_Bookings.objects.get(id=req_id)
 
         if save_action:
-            return
+            underlying_trip = underlying_booking.trip
+            remaining_spots = find_remaining_spots(underlying_trip)
+            required_spots = underlying_booking.spots_requested
+
+            if (remaining_spots - required_spots) > 0:
+                underlying_booking.approval_status = True
+                underlying_booking.save()
+                return JsonResponse({"message": "Approved"}, status = 200)
+            else:
+                return JsonResponse({"message": "Insiffcient Seats"}, status = 200)
         
         else:
             underlying_booking.delete()

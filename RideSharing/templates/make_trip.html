@@ -13,11 +13,12 @@
 
 <script>
 
-    function handle_bookingReqDelConf(event) {
+    function handle_bookingReqConf(event) {
 
-        const req_id = event.target.dataset.itemId
-        
-        send_bookingStatUpdate(req_id, false)
+        const req_id = event.currentTarget.dataset.itemId
+        const save_action = event.currentTarget.dataset.saveAction == "True"
+
+        send_bookingStatUpdate(req_id, save_action)
 
     }
 
@@ -43,11 +44,13 @@
         const data = await response.json()
         if (response.ok) {
 
-            const deleteModal = document.getElementById(`deleteModal-${req_id}`)
-            const modal = bootstrap.Modal.getInstance(deleteModal);
-            modal.hide()
+            if (!save_action){
+                const deleteModal = document.getElementById(`deleteModal-${req_id}`)
+                const modal = bootstrap.Modal.getInstance(deleteModal);
+                modal.hide()
+                update_deleted_row(`requestrow-${req_id}`, data.message)
+            }
 
-            update_deleted_row(`requestrow-${req_id}`, data.message)
         }
         
     }
