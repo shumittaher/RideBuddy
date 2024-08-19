@@ -92,4 +92,8 @@
     </table>
 </div>
 
+{% else %}
+
+{% include 'component_snippets/load_box.html' with text='No request yet' %}
+
 {% endif %}

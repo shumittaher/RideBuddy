@@ -64,13 +64,7 @@
     </div>
     
     <div class="collapse" id="form_space_{{trip.id}}">
-        <div class="rounded m-2 d-flex justify-content-center align-items-center" 
-        style="
-        height: 16.5rem; 
-        background-color: darkgray; 
-        color: white;
-        font-size: xx-large;
-        "> Loading </div>
+        {% include 'component_snippets/load_box.html' with text='Loading' %}
     </div>
 
 </div>

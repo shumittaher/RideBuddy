@@ -104,11 +104,16 @@ def give_trips(request):
 
     if request.method == 'GET':
         origin_area = request.GET.get('origin_area', '')
+        active_only = request.GET.get('active_only', True)
 
         if origin_area:
             queryset = Trips.objects.filter(origin=origin_area)
         else:
             queryset = Trips.objects.all()
+
+        if active_only:
+            today = timezone.now().date()
+            queryset = queryset.filter(valid_till__gte=today)
 
         rendered_trips = render_to_string('component_snippets/trips_list.html', {
             'trips': queryset,

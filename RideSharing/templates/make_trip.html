@@ -41,7 +41,7 @@
         )
 
         const data = await response.json()
-        if (response.status == 200) {
+        if (response.ok) {
 
             const deleteModal = document.getElementById(`deleteModal-${req_id}`)
             const modal = bootstrap.Modal.getInstance(deleteModal);
