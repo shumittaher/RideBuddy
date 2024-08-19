@@ -47,12 +47,12 @@
             const modal = bootstrap.Modal.getInstance(deleteModal);
             modal.hide()
 
-            update_deleted_row(`requestrow-${req_id}`)
+            update_deleted_row(`requestrow-${req_id}`, data.message)
         }
         
     }
 
-    function update_deleted_row(row_id) {
+    function update_deleted_row(row_id, message) {
 
         const requestrow = document.getElementById(row_id)
             const tds = requestrow.querySelectorAll('td');
@@ -61,7 +61,7 @@
                 td.classList.add('text-bg-danger');
 
                 if (td.classList.contains('status')) {
-                    td.textContent = data.message;
+                    td.textContent = message;
                 }
                     
                 const buttons = td.querySelectorAll('button');
