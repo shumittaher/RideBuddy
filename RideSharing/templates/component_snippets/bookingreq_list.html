@@ -18,73 +18,74 @@
 
             {% for item in bookingreq_list %}
 
-            <tr id="requestrow-{{item.id}}">
+                <tr id="requestrow-{{item.id}}">
 
-                <td>
+                    <td>
 
-                    {{item.requester}}
-                </td>
-                <td>
+                        {{item.requester}}
+                    </td>
+                    <td>
 
-                    {{item.spots_requested}}
-                </td>
-                <td>
+                        {{item.spots_requested}}
+                    </td>
+                    <td>
 
-                    {{item.requester_comments}}
-                </td>
-                <td class="status">
+                        {{item.requester_comments}}
+                    </td>
+                    <td class="status">
 
-                    {% if item.approval_status %}
+                        {% if item.approval_status %}
 
-                        Approved
+                            Approved
 
-                    {% else %}
+                        {% else %}
 
-                        Pending
+                            Pending
 
-                    {% endif %}
-                </td>
+                        {% endif %}
+                    </td>
 
-                <td class="buttons">
-                    <div class="d-flex">
+                    <td class="buttons">
+                        <div class="d-flex">
 
-                        <button data-trip-id="{{trip_id}}" data-item-id="{{item.id}}" data-save-action="True" onclick="handle_bookingReqConf(event)"
-                            class="btn btn-primary me-1" type="button">
-                            <i class="fa-regular fa-circle-check"></i>
-                        </button>
-                            <!-- <i class="fa-solid fa-circle-check"></i> -->
-                        
-                        <button 
-                            data-bs-toggle="modal" data-bs-target="#deleteModal-{{item.id}}"
-                            class="btn btn-primary" type="button">
-                            <i class="fa-regular fa-circle-xmark"></i>
-                            <!-- <i class="fa-solid fa-circle-xmark"></i> -->
-                        </button>
+                            <button data-trip-id="{{trip_id}}" data-item-id="{{item.id}}" data-save-action="True" onclick="handle_bookingReqConf(event)"
+                                class="btn btn-primary me-1" type="button">
+                                <i class="fa-regular fa-circle-check"></i>
+                            </button>
+                                <!-- <i class="fa-solid fa-circle-check"></i> -->
+                            
+                            <button 
+                                data-bs-toggle="modal" data-bs-target="#deleteModal-{{item.id}}"
+                                class="btn btn-primary" type="button">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                                <!-- <i class="fa-solid fa-circle-xmark"></i> -->
+                            </button>
+                        </div>
+                    </td>
 
-                        <div class="modal fade" id="deleteModal-{{item.id}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">  
-                          
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel">Confirm Reject</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to reject this request? This action cannot be undone.
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-danger" data-save-action="False" data-item-id="{{item.id}}" onclick="handle_bookingReqConf(event)">Confirm</button>
-                                    </div>
-                                </div>
-                                
+                </tr>
+
+                <div class="modal fade" id="deleteModal-{{item.id}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">  
+                  
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel">Confirm Reject</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to reject this request? This action cannot be undone.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-danger" data-save-action="False" data-item-id="{{item.id}}" data-trip-id="{{trip_id}}" onclick="handle_bookingReqConf(event)">Confirm</button>
                             </div>
                         </div>
-
+                        
                     </div>
-                </td>
+                </div>
+
         
-    </tr>
             
             {% endfor %}
 
