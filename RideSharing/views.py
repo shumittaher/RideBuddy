@@ -12,7 +12,7 @@ import json
 
 from .models import User, Trips, Spot_Bookings
 from .forms import TripsForm, LocationSearchForm, BookingRequestCommentBox
-from .utils import make_booking_form, find_remaining_spots
+from .utils import make_booking_form, find_remaining_spots, addremaining_spots
 
 # Create your views here.
 
@@ -87,9 +87,11 @@ def make_trip(request):
     today = timezone.now().date()
     my_active_trips = Trips.objects.filter(valid_till__gte=today, trip_owner_id = request.user.id)
 
+    my_active_trips_spots = addremaining_spots(my_active_trips)
+
     return render(request, "make_trip.html", {
         'trip_form': inital_form,
-        'my_active_trips': my_active_trips
+        'my_active_trips': my_active_trips_spots
     })
 
 def find_trip(request):
@@ -115,8 +117,10 @@ def give_trips(request):
             today = timezone.now().date()
             queryset = queryset.filter(valid_till__gte=today)
 
+        trips = addremaining_spots(queryset)
+
         rendered_trips = render_to_string('component_snippets/trips_list.html', {
-            'trips': queryset,
+            'trips': trips,
             'booking_trips': True
             })
         
@@ -155,6 +159,7 @@ def give_bookingreqs_list(request, trip_id):
 
     rendered_form = render_to_string('component_snippets/bookingreq_list.html', {
         'bookingreq_list': bookingreq_list,
+        'trip_id': trip_id
     })
 
     return JsonResponse({"rendered_form": rendered_form}, status = 200)
@@ -176,7 +181,7 @@ def bookingreq_put(request):
             if (remaining_spots - required_spots) > 0:
                 underlying_booking.approval_status = True
                 underlying_booking.save()
-                return JsonResponse({"message": "Approved"}, status = 200)
+                return JsonResponse({"message": "Approved", "open_spots" : find_remaining_spots(underlying_trip)}, status = 200)
             else:
                 return JsonResponse({"message": "Insiffcient Seats"}, status = 200)
         

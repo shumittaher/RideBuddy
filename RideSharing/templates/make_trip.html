@@ -17,12 +17,13 @@
 
         const req_id = event.currentTarget.dataset.itemId
         const save_action = event.currentTarget.dataset.saveAction == "True"
+        const trip_id = event.currentTarget.dataset.tripId
 
-        send_bookingStatUpdate(req_id, save_action)
+        send_bookingStatUpdate(req_id, save_action, trip_id)
 
     }
 
-    async function send_bookingStatUpdate(req_id, save_action) {            //save_action will be true for save and false for delete 
+    async function send_bookingStatUpdate(req_id, save_action, trip_id) {            //save_action will be true for save and false for delete 
 
         const csrf = '{{csrf_token}}'
 
@@ -42,26 +43,42 @@
         )
 
         const data = await response.json()
+        
         if (response.ok) {
-
+            const open_spots = (data.open_spots)
+            
             if (!save_action){
                 const deleteModal = document.getElementById(`deleteModal-${req_id}`)
                 const modal = bootstrap.Modal.getInstance(deleteModal);
                 modal.hide()
-                update_deleted_row(`requestrow-${req_id}`, data.message)
             }
-
+            
+            update_row_look(`requestrow-${req_id}`, data.message, save_action)
+            update_open_spots(open_spots, trip_id)
         }
         
     }
+    
+    function update_open_spots(open_spots, trip_id) {
+        const open_spots_space = document.getElementById(`open_spots_${trip_id}`)
+        open_spots_space.textContent = open_spots        
+    }
 
-    function update_deleted_row(row_id, message) {
+    function update_row_look(row_id, message, save_action) {
 
         const requestrow = document.getElementById(row_id)
             const tds = requestrow.querySelectorAll('td');
 
+            if (!save_action) {
+                var row_color = 'text-bg-danger'
+                var disable_status = true
+            } else {
+                var row_color = 'text-bg-success'
+                var disable_status = false
+            }
+
             tds.forEach(td => {
-                td.classList.add('text-bg-danger');
+                td.classList.add(row_color);
 
                 if (td.classList.contains('status')) {
                     td.textContent = message;
@@ -69,7 +86,7 @@
                     
                 const buttons = td.querySelectorAll('button');
                 buttons.forEach(button => {
-                    button.disabled = true;
+                    button.disabled = disable_status;
                 });
 
             });
