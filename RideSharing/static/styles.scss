@@ -27,3 +27,30 @@
     height: 6rem;
     font-size: 3rem;
 }
+
+.booking_row {
+    position: relative;
+}
+
+.booking_row:hover{
+    outline: 2px solid var(--bs-purple);
+    outline-offset: -2px;
+    cursor: pointer;
+}
+
+.booking_row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(var(--bs-primary-rgb), 0.3); /* Customizable transparent color */
+    opacity: 0; /* Initially invisible */
+    pointer-events: none; /* Ensure it doesn't block interactions */
+    transition: opacity 0.3s ease; /* Smooth transition for the hover effect */
+}
+
+.booking_row:hover::before {
+    opacity: 1; 
+}
