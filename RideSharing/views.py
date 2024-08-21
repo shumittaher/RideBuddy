@@ -178,13 +178,25 @@ def bookingreq_put(request):
             remaining_spots = find_remaining_spots(underlying_trip)
             required_spots = underlying_booking.spots_requested
 
-            if (remaining_spots - required_spots) > 0:
+            if (remaining_spots - required_spots) >= 0:
                 underlying_booking.approval_status = True
                 underlying_booking.save()
-                return JsonResponse({"message": "Approved", "open_spots" : find_remaining_spots(underlying_trip)})
+                return JsonResponse({
+                    "message": "Approved", 
+                    "open_spots" : find_remaining_spots(underlying_trip),
+                    "status": "saved"
+                    })
             else:
-                return JsonResponse({"message": "Insiffcient Seats", "open_spots" : find_remaining_spots(underlying_trip)})
+                return JsonResponse({
+                    "message": "Insiffcient Seats", 
+                    "open_spots" : find_remaining_spots(underlying_trip),
+                    "status": "warning"
+                    })
         
         else:
             underlying_booking.delete()
-            return JsonResponse({"message": "Deleted", "open_spots" : find_remaining_spots(underlying_trip)}) 
+            return JsonResponse({
+                "message": "Deleted", 
+                "open_spots" : find_remaining_spots(underlying_trip),
+                "status": "deleted"
+                }) 
