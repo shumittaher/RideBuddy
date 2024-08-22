@@ -39,7 +39,7 @@
 
                         {{item.requester_comments}}
                     </td>
-                    <td class="status">
+                    <td class="status" style="width: 9rem;">
 
                         {% if item.approval_status %}
 
@@ -85,7 +85,30 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-danger" data-save-action="False" data-item-id="{{item.id}}" data-trip-id="{{trip_id}}" onclick="handle_bookingReqConf(event)">Confirm</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-save-action="False" data-item-id="{{item.id}}" data-trip-id="{{trip_id}}" onclick="handle_bookingReqConf(event)">Confirm</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="modal fade" id="infoModal-{{item.id}}" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">  
+                  
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="infoModalLabel">Requester's Comments</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                                            
+                                {{item.requester_comments}}
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-save-action="True" data-item-id="{{item.id}}" data-trip-id="{{trip_id}}" onclick="handle_bookingReqConf(event)">Accept</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"  data-save-action="False" data-item-id="{{item.id}}" data-trip-id="{{trip_id}}" onclick="handle_bookingReqConf(event)">Reject</button>
                             </div>
                         </div>
                         

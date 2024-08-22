@@ -47,12 +47,6 @@
         if (response.ok) {
             const open_spots = (data.open_spots)
             
-            if (!save_action){
-                const deleteModal = document.getElementById(`deleteModal-${req_id}`)
-                const modal = bootstrap.Modal.getInstance(deleteModal);
-                modal.hide()
-            }
-            
             update_row_look(`requestrow-${req_id}`, data.message, data.status)
             update_open_spots(open_spots, trip_id)
         }
@@ -107,8 +101,12 @@
     function handle_showBookingReq(event) {
 
         itemId = event.currentTarget.dataset.reqId
-        console.log(event.currentTarget)
-        console.log(event.target)
+
+        const infoModal = document.getElementById(`infoModal-${itemId}`)
+        
+        const modal = new bootstrap.Modal(infoModal)
+
+        modal.show()
 
     }
 
