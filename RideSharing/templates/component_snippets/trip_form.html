@@ -1,9 +1,23 @@
-<form action="{% url 'make_trip' %}" method="post" style="max-width: 700px;" class="mx-auto">
-
-    {% csrf_token %}
-
-    {{trip_form}}
+<div id="post_form_area" class="shadow rounded border bg-light mx-auto" style="max-width: 767px;">
+        
+    <button id="post_form_collapse" data-bs-toggle="collapse" data-bs-target="#post_form_form" class="btn text-start btn-primary btn-lg py-4 px-3 w-100">
+        <span id="post_form_collapse_span" style="animation-direction:normal; width:100%" class="text-center d-inline-block">
+            Make New Trip
+        </span>
+    </button>
     
-    <input class="mt-1 btn btn-primary" type="submit">
+    <div id="post_form_form" class="collapse">
+        <hr class="p-0 m-0">
 
-</form>
+        <form action="{% url 'make_trip' %}" method="post" style="max-width: 700px;" class="my-3 mx-auto">
+            
+            {% csrf_token %}
+            
+            {{trip_form}}
+            
+            <input class="mt-1 btn btn-primary" type="submit">
+            
+        </form>
+        
+    </div>
+</div>
