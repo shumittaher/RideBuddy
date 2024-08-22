@@ -6,7 +6,7 @@
 
         <thead>
             <tr>
-                <th class="m-0 p-0"></th>
+                <th class="m-0 p-0"></th>  <!-- this column is for the Psudo-element -->
                 <th scope="col">Requester</th>
                 <th scope="col">Seat</th>
                 <th scope="col" class="d-none d-sm-table-cell">Message</th>
@@ -19,7 +19,7 @@
 
             {% for item in bookingreq_list %}
 
-                <tr id="requestrow-{{item.id}}" class="booking_row">
+                <tr id="requestrow-{{item.id}}" data-req-id="{{item.id}}" class="booking_row" onclick="handle_showBookingReq(event)">
 
                     <td>
 
@@ -55,13 +55,13 @@
                     <td class="buttons">
                         <div class="d-flex flex-column flex-sm-row align-items-end justify-content-end">
 
-                            <button data-trip-id="{{trip_id}}" data-item-id="{{item.id}}" data-save-action="True" onclick="handle_bookingReqConf(event)"
+                            <button data-trip-id="{{trip_id}}" data-item-id="{{item.id}}" data-save-action="True" onclick="handle_bookingReqConf(event); event.stopPropagation();"
                                 class="btn btn-primary me-0 me-sm-1 mb-1 mb-sm-0" type="button">
                                 <i class="fa-regular fa-circle-check"></i>
                             </button>
                                 <!-- <i class="fa-solid fa-circle-check"></i> -->
                             
-                            <button 
+                            <button onclick="event.stopPropagation();"
                                 data-bs-toggle="modal" data-bs-target="#deleteModal-{{item.id}}"
                                 class="btn btn-primary" type="button">
                                 <i class="fa-regular fa-circle-xmark"></i>

@@ -42,10 +42,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(var(--bs-primary-rgb), 0.3); /* Customizable transparent color */
-  opacity: 0; /* Initially invisible */
-  pointer-events: none; /* Ensure it doesn't block interactions */
-  transition: opacity 0.3s ease; /* Smooth transition for the hover effect */
+  background-color: rgba(var(--bs-primary-rgb), 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 .booking_row:hover::before {

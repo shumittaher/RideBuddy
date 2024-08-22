@@ -104,6 +104,14 @@
 
     }
 
+    function handle_showBookingReq(event) {
+
+        itemId = event.currentTarget.dataset.reqId
+        console.log(event.currentTarget)
+        console.log(event.target)
+
+    }
+
     document.addEventListener('DOMContentLoaded', ()=>{
 
         const valid_for = document.getElementById('id_valid_for')

@@ -176,7 +176,9 @@ def bookingreq_put(request):
 
         if save_action:
             remaining_spots = find_remaining_spots(underlying_trip)
-            required_spots = underlying_booking.spots_requested
+            required_spots = underlying_booking.spots_requested 
+            if underlying_booking.approval_status:
+                required_spots = 0
 
             if (remaining_spots - required_spots) >= 0:
                 underlying_booking.approval_status = True
