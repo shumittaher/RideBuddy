@@ -70,6 +70,10 @@ def index(request):
     return render(request, "index.html")
 
 @login_required(login_url ='/login')
+def mypage(request, user_id):
+    return render(request, "mypage.html")
+
+@login_required(login_url ='/login')
 def make_trip(request):
 
     active_user = get_object_or_404(User, pk = request.user.id)
