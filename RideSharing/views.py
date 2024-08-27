@@ -216,3 +216,11 @@ def bookingreq_put(request):
                 "open_spots" : find_remaining_spots(underlying_trip),
                 "status": "deleted"
                 }) 
+        
+def give_unread(request):
+
+    unread_number = Messages.objects.filter(recipient = request.user, read = False).count()
+
+    return JsonResponse({
+        "unread": unread_number
+    })

@@ -1,6 +1,37 @@
 document.addEventListener('DOMContentLoaded', ()=>{
     updateActiveStatus()
+
+    const unread_messagecount_space = document.getElementById('unread_messagecount_space')
+
+    if (unread_messagecount_space) {
+        update_unread_looks()
+    }
 })
+
+async function update_unread_looks() {
+
+    const unread_count = await get_unread_counter()
+    unread_messagecount_space.innerText = unread_count
+
+    if (unread_count){
+        unread_messagecount_space.classList.remove('visually-hidden')
+    } else {
+        unread_messagecount_space.classList.add('visually-hidden')
+    }
+
+}
+
+async function get_unread_counter() {
+
+    const response = await fetch('give_unread')
+    const data = await response.json()
+    unread_count = data.unread
+    if (unread_count){
+        return unread_count
+    } else {
+        return 0
+    }
+}
 
 function fetchActiveRoute() {
 
