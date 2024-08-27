@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 import json
 
-from .models import User, Trips, Spot_Bookings
+from .models import User, Trips, Spot_Bookings, Messages
 from .forms import TripsForm, LocationSearchForm, BookingRequestCommentBox
 from .utils import make_booking_form, find_remaining_spots, addremaining_spots
 
@@ -138,7 +138,17 @@ def booking_request(request):
         new_booking = BookingRequestCommentBox(new_booking_data)
 
         if new_booking.is_valid():
+
             new_booking.save()
+
+            message_data = {
+                'recipient': new_booking.cleaned_data["trip"].trip_owner,
+                'content' : 'New booking request received for trip no ' + str(new_booking.cleaned_data["trip"].id),
+            }
+
+            new_message = Messages(**message_data)
+            new_message.save()
+            
             messages.success(request, "Booking request recorded successfully.")
             return JsonResponse({"status": "Booking data saved"}, status=200)
 

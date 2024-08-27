@@ -39,3 +39,12 @@ class Spot_Bookings(models.Model):
     requester_comments = models.CharField(max_length=255)
     approval_status = models.BooleanField()
 
+class Messages(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='message_recipient')
+    content = models.TextField()
+    time_stamp = models.DateTimeField(auto_now_add=True)
+    system_message = models.BooleanField(default=True)
+    read = models.BooleanField(default=False)
+
+
