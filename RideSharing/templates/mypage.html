@@ -15,7 +15,7 @@
                 <br>
                 <strong>Message:</strong> {{ message.content }}
                 <br>
-                <strong>Time:</strong> {{ message.time_stamp }}
+                <strong>Time:</strong> {{ message.time_stamp|date:"F j, Y" }}
                 <br>
                 <strong>Read:</strong> {{ message.read|yesno:"Yes,No" }}
             </li>
