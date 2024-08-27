@@ -6,11 +6,11 @@
 
 {% block body %}
 
-    <h2>Messages for {{ recipient.username|capfirst }}</h2>
+    <h2 class="text-center">Messages for {{ recipient.username|capfirst }}</h2>
 
-    <ul>
+    <ul class="boxes mx-auto">
         {% for message in my_messages %}
-            <li>
+            <li class="border booking_row">
                 <strong>From:</strong> {% if message.sender %}{{ message.sender.username }}{% else %}System{% endif %}
                 <br>
                 <strong>Message:</strong> {{ message.content }}
