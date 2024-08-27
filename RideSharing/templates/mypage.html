@@ -1,15 +1,27 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Home
+   : My Page
 {% endblock %}
 
 {% block body %}
 
-    <div class="container">      
-        <button class="btn btn-primary">
-            hi
-        </button>
-    </div>
+    <h2>Messages for {{ recipient.username|capfirst }}</h2>
+
+    <ul>
+        {% for message in my_messages %}
+            <li>
+                <strong>From:</strong> {% if message.sender %}{{ message.sender.username }}{% else %}System{% endif %}
+                <br>
+                <strong>Message:</strong> {{ message.content }}
+                <br>
+                <strong>Time:</strong> {{ message.time_stamp }}
+                <br>
+                <strong>Read:</strong> {{ message.read|yesno:"Yes,No" }}
+            </li>
+        {% empty %}
+            <li>No messages found.</li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}

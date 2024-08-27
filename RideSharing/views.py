@@ -71,7 +71,13 @@ def index(request):
 
 @login_required(login_url ='/login')
 def mypage(request, user_id):
-    return render(request, "mypage.html")
+    user = User.objects.get(id=user_id)
+    my_messages = user.message_recipient.all()
+    
+    return render(request, "mypage.html", {
+        'recipient' : user,
+        'my_messages' : my_messages
+    })
 
 @login_required(login_url ='/login')
 def make_trip(request):
@@ -215,7 +221,7 @@ def bookingreq_put(request):
                 "message": "Deleted", 
                 "open_spots" : find_remaining_spots(underlying_trip),
                 "status": "deleted"
-                }) 
+            }) 
         
 def give_unread(request):
 

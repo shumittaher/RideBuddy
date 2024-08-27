@@ -15,5 +15,5 @@ urlpatterns = [
     path("give_bookingreqs_list/<int:trip_id>", views.give_bookingreqs_list),
     path("booking_request", views.booking_request),
     path("bookingreq_put", views.bookingreq_put),
-    path("give_unread", views.give_unread)
+    path("give_unread", views.give_unread),
 ]

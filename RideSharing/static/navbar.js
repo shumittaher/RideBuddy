@@ -23,7 +23,7 @@ async function update_unread_looks() {
 
 async function get_unread_counter() {
 
-    const response = await fetch('give_unread')
+    const response = await fetch('/give_unread')
     const data = await response.json()
     unread_count = data.unread
     if (unread_count){
