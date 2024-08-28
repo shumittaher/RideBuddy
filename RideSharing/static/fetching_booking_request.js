@@ -11,9 +11,9 @@ async function fetch_bookingreq_forms(trip_id, request_form) {
     let response;
 
     if (request_form){
-        response = await fetch(`give_bookingreq_forms/${trip_id}`);
+        response = await fetch(`/give_bookingreq_forms/${trip_id}`);
     } else {
-        response = await fetch(`give_bookingreqs_list/${trip_id}`);
+        response = await fetch(`/give_bookingreqs_list/${trip_id}`);
     }
     if (response.ok) {
         const data = await response.json();

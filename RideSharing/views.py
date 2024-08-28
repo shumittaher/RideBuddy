@@ -114,24 +114,30 @@ def find_trip(request):
 
 def give_trips(request):
 
-    if request.method == 'GET':
-        origin_area = request.GET.get('origin_area', '')
-        active_only = request.GET.get('active_only', True)
-
-        if origin_area:
-            queryset = Trips.objects.filter(origin=origin_area)
+    if request.method == 'GET': 
+        
+        booking_trips = request.GET.get('booking_trips') == 'true'
+        trip_id = request.GET.get('trip_id')
+        
+        if trip_id:
+            queryset = [Trips.objects.get(id = trip_id)]
+        
         else:
-            queryset = Trips.objects.all()
-
-        if active_only:
-            today = timezone.now().date()
-            queryset = queryset.filter(valid_till__gte=today)
-
+            origin_area = request.GET.get('origin_area', '')
+            active_only = request.GET.get('active_only', True)
+            if origin_area:
+                queryset = Trips.objects.filter(origin=origin_area)
+            else:
+                queryset = Trips.objects.all()
+            if active_only:
+                today = timezone.now().date()
+                queryset = queryset.filter(valid_till__gte=today)
+        
         trips = addremaining_spots(queryset)
-
+        
         rendered_trips = render_to_string('component_snippets/trips_list.html', {
             'trips': trips,
-            'booking_trips': True
+            'booking_trips': booking_trips
             })
         
         return JsonResponse({'rendered_trips': rendered_trips})
@@ -145,11 +151,13 @@ def booking_request(request):
 
         if new_booking.is_valid():
 
-            new_booking.save()
+            new_booking_instance = new_booking.save()
 
             message_data = {
                 'recipient': new_booking.cleaned_data["trip"].trip_owner,
                 'content' : 'New booking request received for trip no ' + str(new_booking.cleaned_data["trip"].id),
+                'underlying_trip' : new_booking.cleaned_data["trip"],
+                'underlying_booking' : new_booking_instance
             }
 
             new_message = Messages(**message_data)

@@ -46,5 +46,7 @@ class Messages(models.Model):
     time_stamp = models.DateTimeField(auto_now_add=True)
     system_message = models.BooleanField(default=True)
     read = models.BooleanField(default=False)
+    underlying_trip = models.ForeignKey(Trips, on_delete=models.CASCADE)
+    underlying_booking = models.ForeignKey(Spot_Bookings, on_delete=models.CASCADE)
 
 

@@ -6,11 +6,14 @@
 
 {% block body %}
 
+    <section class="mb-4" id="placement_space">
+    </section>
+
     <h2 class="text-center">Messages for {{ recipient.username|capfirst }}</h2>
 
     <ul class="boxes mx-auto">
         {% for message in my_messages %}
-            <li class="border booking_row">
+            <li onclick="handle_message_click(event)" data-trip-id="{{message.underlying_trip.id}}" data-booking-id="{{message.underlying_booking.id}}" class="border booking_row">
                 <strong>From:</strong> {% if message.sender %}{{ message.sender.username }}{% else %}System{% endif %}
                 <br>
                 <strong>Message:</strong> {{ message.content }}
@@ -23,5 +26,25 @@
             <li>No messages found.</li>
         {% endfor %}
     </ul>
+
+    <script>
+        const placement_space = document.getElementById('placement_space')
+
+        async function handle_message_click(event) {
+            trip_id = event.currentTarget.dataset.tripId
+            booking_id = event.currentTarget.dataset.bookingId
+
+            rendered_trips = await get_trip(trip_id)
+
+            placement_space.innerHTML = rendered_trips
+        }
+
+        async function get_trip(trip_id) {
+            const response = await fetch(`/give_trips?trip_id=${trip_id}&booking_trips=false`)   
+            const data = await response.json()
+
+            return data.rendered_trips
+        }
+    </script>
 
 {% endblock %}
