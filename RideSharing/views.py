@@ -118,6 +118,7 @@ def give_trips(request):
         
         booking_trips = request.GET.get('booking_trips') == 'true'
         trip_id = request.GET.get('trip_id')
+        spec_booking = request.GET.get('spec_booking')
         
         if trip_id:
             queryset = [Trips.objects.get(id = trip_id)]
@@ -137,7 +138,8 @@ def give_trips(request):
         
         rendered_trips = render_to_string('component_snippets/trips_list.html', {
             'trips': trips,
-            'booking_trips': booking_trips
+            'booking_trips': booking_trips,
+            'spec_booking' : spec_booking
             })
         
         return JsonResponse({'rendered_trips': rendered_trips})
@@ -182,12 +184,20 @@ def give_bookingreq_forms(request, trip_id):
 def give_bookingreqs_list(request, trip_id):
 
     underlying_trip = Trips.objects.get(id = trip_id)
+        
+    filter_dict = {
+        'trip' : underlying_trip
+    }
 
-    bookingreq_list = Spot_Bookings.objects.filter(trip = underlying_trip)
+    spec_booking = request.GET.get('spec_booking')
+    if spec_booking:
+        filter_dict['id'] = spec_booking
+
+    bookingreq_list = Spot_Bookings.objects.filter(**filter_dict)
 
     rendered_form = render_to_string('component_snippets/bookingreq_list.html', {
         'bookingreq_list': bookingreq_list,
-        'trip_id': trip_id
+        'trip_id': trip_id,
     })
 
     return JsonResponse({"rendered_form": rendered_form}, status = 200)
@@ -234,6 +244,9 @@ def bookingreq_put(request):
 def give_unread(request):
 
     unread_number = Messages.objects.filter(recipient = request.user, read = False).count()
+
+    if unread_number > 99:
+        unread_number = '99+'
 
     return JsonResponse({
         "unread": unread_number

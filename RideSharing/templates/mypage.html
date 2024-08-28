@@ -34,13 +34,13 @@
             trip_id = event.currentTarget.dataset.tripId
             booking_id = event.currentTarget.dataset.bookingId
 
-            rendered_trips = await get_trip(trip_id)
+            rendered_trips = await get_trip(trip_id, booking_id)
 
             placement_space.innerHTML = rendered_trips
         }
 
-        async function get_trip(trip_id) {
-            const response = await fetch(`/give_trips?trip_id=${trip_id}&booking_trips=false`)   
+        async function get_trip(trip_id, booking_id) {
+            const response = await fetch(`/give_trips?trip_id=${trip_id}&booking_trips=false&spec_booking=${booking_id}`)   
             const data = await response.json()
 
             return data.rendered_trips
