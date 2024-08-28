@@ -1,6 +1,6 @@
 from .forms import BookingRequestCommentBox
 from django.shortcuts import get_object_or_404
-from .models import Trips, Spot_Bookings
+from .models import Trips, Spot_Bookings, Messages
 from django.db.models import Sum
 
 
@@ -36,3 +36,7 @@ def addremaining_spots(trips):
         })
 
     return trip_spot
+
+def send_message(message_data):
+    new_message = Messages(**message_data)
+    new_message.save()

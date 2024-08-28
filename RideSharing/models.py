@@ -31,6 +31,9 @@ class Trips(models.Model):
     valid_till = models.DateField()
     trip_owner = models.ForeignKey(User, on_delete = models.CASCADE)
 
+    def __str__(self):
+        return f"Trip from {self.origin.location_name} to {self.destination.location_name}"
+
 class Spot_Bookings(models.Model):
 
     trip = models.ForeignKey(Trips, on_delete=models.CASCADE)

@@ -12,7 +12,7 @@ import json
 
 from .models import User, Trips, Spot_Bookings, Messages
 from .forms import TripsForm, LocationSearchForm, BookingRequestCommentBox
-from .utils import make_booking_form, find_remaining_spots, addremaining_spots
+from .utils import make_booking_form, find_remaining_spots, addremaining_spots, send_message
 
 # Create your views here.
 
@@ -157,14 +157,13 @@ def booking_request(request):
 
             message_data = {
                 'recipient': new_booking.cleaned_data["trip"].trip_owner,
-                'content' : 'New booking request received for trip no ' + str(new_booking.cleaned_data["trip"].id),
+                'content' : f'New booking request received for {new_booking.cleaned_data["trip"]}',
                 'underlying_trip' : new_booking.cleaned_data["trip"],
                 'underlying_booking' : new_booking_instance
             }
 
-            new_message = Messages(**message_data)
-            new_message.save()
-            
+            send_message(message_data)
+           
             messages.success(request, "Booking request recorded successfully.")
             return JsonResponse({"status": "Booking data saved"}, status=200)
 
