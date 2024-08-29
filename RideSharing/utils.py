@@ -38,5 +38,17 @@ def addremaining_spots(trips):
     return trip_spot
 
 def send_message(message_data):
+              
+    if message_data["message_type"] == 'approval':
+        content = f"Your Request for {message_data['underlying_trip']} is now approved"
+
+    if message_data["message_type"] == 'request':
+        content = f'New booking request received for {message_data["underlying_trip"]}'
+
+    if message_data["message_type"] == 'rejection':
+        content = f'Your Request for {message_data["underlying_trip"]} has been rejected'
+
+    message_data['content'] = content
+
     new_message = Messages(**message_data)
     new_message.save()

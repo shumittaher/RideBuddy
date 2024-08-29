@@ -157,9 +157,9 @@ def booking_request(request):
 
             message_data = {
                 'recipient': new_booking.cleaned_data["trip"].trip_owner,
-                'content' : f'New booking request received for {new_booking.cleaned_data["trip"]}',
                 'underlying_trip' : new_booking.cleaned_data["trip"],
-                'underlying_booking' : new_booking_instance
+                'underlying_booking' : new_booking_instance,
+                'message_type': 'request'
             }
 
             send_message(message_data)
@@ -211,6 +211,12 @@ def bookingreq_put(request):
         underlying_booking = Spot_Bookings.objects.get(id=req_id)
         underlying_trip = underlying_booking.trip
 
+        message_data = {
+            'recipient': underlying_booking.requester,
+            'underlying_trip' : underlying_trip,
+            'underlying_booking' : underlying_booking,
+        }
+
         if save_action:
             remaining_spots = find_remaining_spots(underlying_trip)
             required_spots = underlying_booking.spots_requested 
@@ -221,13 +227,7 @@ def bookingreq_put(request):
                 underlying_booking.approval_status = True
                 underlying_booking.save()
 
-                message_data = {
-                    'recipient': underlying_booking.requester,
-                    'content' : f'Your Request for {underlying_booking.trip} is now approved',
-                    'underlying_trip' : underlying_booking.trip,
-                    'underlying_booking' : underlying_booking
-                }
-
+                message_data['message_type'] = 'approval'  
                 send_message(message_data)
                 
                 return JsonResponse({
@@ -243,7 +243,14 @@ def bookingreq_put(request):
                     })
         
         else:
+
+            message_data['message_type'] = 'rejection'  
+            send_message(message_data)
+
+            print(underlying_booking)
+
             underlying_booking.delete()
+
             return JsonResponse({
                 "message": "Deleted", 
                 "open_spots" : find_remaining_spots(underlying_trip),

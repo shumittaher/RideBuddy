@@ -43,6 +43,14 @@ class Spot_Bookings(models.Model):
     approval_status = models.BooleanField()
 
 class Messages(models.Model):
+
+    MESSAGE_TYPE_CHOICES = [
+        ('approval', 'Approval'),
+        ('rejection', 'Rejection'),
+        ('request', 'Request'),
+        ('info', 'Info'),
+    ]
+
     sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='message_recipient')
     content = models.TextField()
@@ -50,6 +58,8 @@ class Messages(models.Model):
     system_message = models.BooleanField(default=True)
     read = models.BooleanField(default=False)
     underlying_trip = models.ForeignKey(Trips, on_delete=models.CASCADE)
-    underlying_booking = models.ForeignKey(Spot_Bookings, on_delete=models.CASCADE)
+    underlying_booking = models.ForeignKey(Spot_Bookings, on_delete=models.SET_NULL, null=True, blank=True)
+    message_type = models.CharField(max_length=10, choices=MESSAGE_TYPE_CHOICES)
+    
 
 
