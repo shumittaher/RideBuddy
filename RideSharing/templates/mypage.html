@@ -13,7 +13,8 @@
 
     <ul class="boxes mx-auto">
         {% for message in my_messages %}
-            <li onclick="handle_message_click(event)" data-trip-id="{{message.underlying_trip.id}}" data-booking-id="{{message.underlying_booking.id}}" class="border booking_row">
+            <li onclick="handle_message_click(event)" data-trip-id="{{message.underlying_trip.id}}" data-booking-id="{{message.underlying_booking.id}}" 
+            class="border rounded booking_row mail_summary">
                 <strong>From:</strong> {% if message.sender %}{{ message.sender.username }}{% else %}System{% endif %}
                 <br>
                 <strong>Message:</strong> {{ message.content }}
@@ -28,15 +29,29 @@
     </ul>
 
     <script>
-        const placement_space = document.getElementById('placement_space')
 
+        document.addEventListener('DOMContentLoaded', ()=>{
+
+            placement_space = document.getElementById('placement_space')
+            main_section = document.getElementById('main_section')
+            
+        })
+        
         async function handle_message_click(event) {
-            trip_id = event.currentTarget.dataset.tripId
-            booking_id = event.currentTarget.dataset.bookingId
 
-            rendered_trips = await get_trip(trip_id, booking_id)
+            collapsed_section = bootstrap.Collapse.getOrCreateInstance(placement_space, {
+                toggle: false
+            })
+            
+            const { tripId, bookingId } = event.currentTarget.dataset;
+
+            const rendered_trips = await get_trip(tripId, bookingId)
 
             placement_space.innerHTML = rendered_trips
+
+            collapsed_section.show()
+
+            main_section.scrollIntoView({ behavior:"smooth"})
         }
 
         async function get_trip(trip_id, booking_id) {
