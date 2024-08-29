@@ -220,6 +220,16 @@ def bookingreq_put(request):
             if (remaining_spots - required_spots) >= 0:
                 underlying_booking.approval_status = True
                 underlying_booking.save()
+
+                message_data = {
+                    'recipient': underlying_booking.requester,
+                    'content' : f'Your Request for {underlying_booking.trip} is now approved',
+                    'underlying_trip' : underlying_booking.trip,
+                    'underlying_booking' : underlying_booking
+                }
+
+                send_message(message_data)
+                
                 return JsonResponse({
                     "message": "Approved", 
                     "open_spots" : find_remaining_spots(underlying_trip),
