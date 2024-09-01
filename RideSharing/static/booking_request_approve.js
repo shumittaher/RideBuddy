@@ -11,7 +11,7 @@ function handle_bookingReqConf(event) {
 async function send_bookingStatUpdate(req_id, save_action, trip_id) {            //save_action will be true for save and false for delete 
 
     const response = await fetch(
-        '/bookingreq_put',
+        '/booking_request',
         {
             method: 'PUT',
             headers: {

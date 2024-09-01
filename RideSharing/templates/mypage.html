@@ -13,15 +13,19 @@
 
     <ul class="boxes mx-auto">
         {% for message in my_messages %}
-            <li onclick="handle_message_click(event)" data-trip-id="{{message.underlying_trip.id}}" data-booking-id="{{message.underlying_booking.id}}" 
-            class="border rounded booking_row mail_summary">
+            <li 
+            onclick="handle_message_click(event)" 
+            data-message-id="{{message.id}}" 
+            data-trip-id="{{message.underlying_trip.id}}" 
+            data-booking-id="{{message.underlying_booking.id}}" 
+            class="border rounded booking_row mail_summary {% if message.read %} mail_read {% endif %}"
+            >
                 <strong>From:</strong> {% if message.sender %}{{ message.sender.username }}{% else %}System{% endif %}
-                <br>
-                <strong>Message:</strong> {{ message.content }}
                 <br>
                 <strong>Time:</strong> {{ message.time_stamp|date:"F j, Y" }}
                 <br>
-                <strong>Read:</strong> {{ message.read|yesno:"Yes,No" }}
+                <strong>Message:</strong> {{ message.content }}
+                
             </li>
         {% empty %}
             <li>No messages found.</li>
@@ -43,15 +47,22 @@
                 toggle: false
             })
             
-            const { tripId, bookingId } = event.currentTarget.dataset;
+            const message_body = event.currentTarget
+
+            const { tripId, bookingId, messageId } = message_body.dataset;
 
             const rendered_trips = await get_trip(tripId, bookingId)
-
+            
             placement_space.innerHTML = rendered_trips
-
+            
             collapsed_section.show()
-
             main_section.scrollIntoView({ behavior:"smooth"})
+            
+            const data = await message_put(messageId)
+            if (data.read) {
+                message_body.classList.add('mail_read')
+                console.log(message_body)
+            }
         }
 
         async function get_trip(trip_id, booking_id) {
@@ -60,6 +71,24 @@
 
             return data.rendered_trips
         }
+
+        async function message_put(message_id) {
+            const response = await fetch('/messages_put',
+                {
+                    method: 'PUT',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrf
+                    },
+                    body: JSON.stringify({
+                        'message_id' : message_id,
+                    })
+                }
+            )
+            const data = await response.json()
+            return data
+        }
+
     </script>
 
 {% endblock %}

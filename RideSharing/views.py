@@ -146,7 +146,59 @@ def give_trips(request):
     
 def booking_request(request):
 
-    if request.method == 'POST':
+    if request.method == 'PUT':
+        put_data = json.loads(request.body)
+        req_id = put_data['req_id']
+        save_action = put_data['save_action']
+
+        underlying_booking = Spot_Bookings.objects.get(id=req_id)
+        underlying_trip = underlying_booking.trip
+
+        message_data = {
+            'recipient': underlying_booking.requester,
+            'underlying_trip' : underlying_trip,
+            'underlying_booking' : underlying_booking,
+        }
+
+        if save_action:
+            remaining_spots = find_remaining_spots(underlying_trip)
+            required_spots = underlying_booking.spots_requested 
+            if underlying_booking.approval_status:
+                required_spots = 0
+
+            if (remaining_spots - required_spots) >= 0:
+                underlying_booking.approval_status = True
+                underlying_booking.save()
+
+                message_data['message_type'] = 'approval'  
+                send_message(message_data)
+                
+                return JsonResponse({
+                    "message": "Approved", 
+                    "open_spots" : find_remaining_spots(underlying_trip),
+                    "status": "saved"
+                    })
+            else:
+                return JsonResponse({
+                    "message": "Insiffcient Seats", 
+                    "open_spots" : find_remaining_spots(underlying_trip),
+                    "status": "warning"
+                    })
+        
+        else:
+
+            message_data['message_type'] = 'rejection'  
+            send_message(message_data)
+
+            underlying_booking.delete()
+
+            return JsonResponse({
+                "message": "Deleted", 
+                "open_spots" : find_remaining_spots(underlying_trip),
+                "status": "deleted"
+            }) 
+
+    elif request.method == 'POST':
         new_booking_data = json.loads(request.body)['booking_request']
 
         new_booking = BookingRequestCommentBox(new_booking_data)
@@ -200,63 +252,7 @@ def give_bookingreqs_list(request, trip_id):
     })
 
     return JsonResponse({"rendered_form": rendered_form}, status = 200)
-
-def bookingreq_put(request):
-
-    if request.method == 'PUT':
-        put_data = json.loads(request.body)
-        req_id = put_data['req_id']
-        save_action = put_data['save_action']
-
-        underlying_booking = Spot_Bookings.objects.get(id=req_id)
-        underlying_trip = underlying_booking.trip
-
-        message_data = {
-            'recipient': underlying_booking.requester,
-            'underlying_trip' : underlying_trip,
-            'underlying_booking' : underlying_booking,
-        }
-
-        if save_action:
-            remaining_spots = find_remaining_spots(underlying_trip)
-            required_spots = underlying_booking.spots_requested 
-            if underlying_booking.approval_status:
-                required_spots = 0
-
-            if (remaining_spots - required_spots) >= 0:
-                underlying_booking.approval_status = True
-                underlying_booking.save()
-
-                message_data['message_type'] = 'approval'  
-                send_message(message_data)
-                
-                return JsonResponse({
-                    "message": "Approved", 
-                    "open_spots" : find_remaining_spots(underlying_trip),
-                    "status": "saved"
-                    })
-            else:
-                return JsonResponse({
-                    "message": "Insiffcient Seats", 
-                    "open_spots" : find_remaining_spots(underlying_trip),
-                    "status": "warning"
-                    })
-        
-        else:
-
-            message_data['message_type'] = 'rejection'  
-            send_message(message_data)
-
-            print(underlying_booking)
-
-            underlying_booking.delete()
-
-            return JsonResponse({
-                "message": "Deleted", 
-                "open_spots" : find_remaining_spots(underlying_trip),
-                "status": "deleted"
-            }) 
-        
+    
 def give_unread(request):
 
     unread_number = Messages.objects.filter(recipient = request.user, read = False).count()
@@ -267,3 +263,20 @@ def give_unread(request):
     return JsonResponse({
         "unread": unread_number
     })
+
+def messages_put(request):
+
+    if request.method == 'PUT':
+        put_data = json.loads(request.body)
+
+    msg_id = put_data["message_id"]
+
+    message = Messages.objects.get(id = msg_id)
+    message.read = True
+
+    message.save()
+
+    return JsonResponse({
+            'id': message.id,
+            'read': message.read,
+        })

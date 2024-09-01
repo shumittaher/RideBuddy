@@ -73,11 +73,12 @@
   }
 
   100% {
-     width: 0%;
+    width: 0%;
   }
 }
 
 
-// .mail_summary {
-
-// }
+.mail_read {
+    background-color: #f0f0f0;
+    color: gray;
+}
