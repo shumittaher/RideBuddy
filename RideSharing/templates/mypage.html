@@ -34,6 +34,7 @@
                         <div>
                             <strong>From:</strong> {% if message.sender %}{{ message.sender.username }}{% else %}System Generated{% endif %}
                         </div>
+                        <hr>
                         <div>
                             {{ message.time_stamp|date:"F j, Y" }}
                         </div>
@@ -42,10 +43,22 @@
                         <strong>Message:</strong> {{ message.content }}
                     </div>
                 </div>
-                    
-                <div class="">
-                    {{ message.message_type }}
+                                   
+                <div class="border m-2 border-5 d-flex justify-content-center align-items-center" 
+                style="font-size: 3rem; min-height: 6rem; min-width: 6rem; border-radius: 50%;">
+
+                {% if message.message_type == 'request' %}
+                <i class="fa-solid fa-bell"></i>
+                {% elif message.message_type == 'approval' %}
+                <i class="fa-solid fa-check"></i>
+                {% elif message.message_type == 'rejection' %}
+                <i class="fa-solid fa-xmark"></i>
+                {% else %}
+                <i class="fa-solid fa-comment"></i>
+                {% endif %}
+
                 </div>
+
             </li>
         {% empty %}
             <li>No messages found.</li>
