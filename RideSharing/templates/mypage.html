@@ -11,21 +11,41 @@
 
     <h2 class="text-center">Messages for {{ recipient.username|capfirst }}</h2>
 
-    <ul class="boxes mx-auto">
+    <ul class="boxes mx-auto list-unstyled">
         {% for message in my_messages %}
             <li 
             onclick="handle_message_click(event)" 
             data-message-id="{{message.id}}" 
             data-trip-id="{{message.underlying_trip.id}}" 
             data-booking-id="{{message.underlying_booking.id}}" 
-            class="border rounded booking_row mail_summary {% if message.read %} mail_read {% endif %}"
+            class="d-flex border rounded booking_row {% if message.read %} mail_read {% endif %}"
             >
-                <strong>From:</strong> {% if message.sender %}{{ message.sender.username }}{% else %}System{% endif %}
-                <br>
-                <strong>Time:</strong> {{ message.time_stamp|date:"F j, Y" }}
-                <br>
-                <strong>Message:</strong> {{ message.content }}
-                
+                <div class="border m-2 border-5 d-flex justify-content-center align-items-center" 
+                style="font-size: 3rem; min-height: 6rem; min-width: 6rem; border-radius: 50%;">
+                    {% if message.system_message %}
+                        <i class="fa-solid fa-robot"></i>
+                    {% else %}
+                        <i class="fa-solid fa-user"></i>
+                    {% endif %}
+                </div>
+
+                <div class="flex-fill p-2">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <strong>From:</strong> {% if message.sender %}{{ message.sender.username }}{% else %}System Generated{% endif %}
+                        </div>
+                        <div>
+                            {{ message.time_stamp|date:"F j, Y" }}
+                        </div>
+                    </div>
+                    <div>
+                        <strong>Message:</strong> {{ message.content }}
+                    </div>
+                </div>
+                    
+                <div class="">
+                    {{ message.message_type }}
+                </div>
             </li>
         {% empty %}
             <li>No messages found.</li>
