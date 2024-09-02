@@ -6,27 +6,18 @@
 
 {% block body %}
 
-    <section class="mb-4" id="placement_space">
-    </section>
-
     <div class="modal fade" id="msgModal" tabindex="-1" aria-labelledby="msgModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg modal-fullscreen-lg-down modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="msgModalLabel">Modal title</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <div class="modal-body">
-                ...
+                <div class="modal-body p-0 d-flex justify-content-center align-items-center" id="placement_space">
+                
                 </div>
     
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            
             </div>
         </div>
     </div>
@@ -102,27 +93,18 @@
         })
         
         async function handle_message_click(event) {
-
-            const collapsed_section = bootstrap.Collapse.getOrCreateInstance(placement_space, {
-                toggle: false
-            })
-
-            // const msgModal = 
             
             const msgModal = bootstrap.Modal.getOrCreateInstance(document.getElementById(`msgModal`))
-            msgModal.show()
-
+            
             const message_body = event.currentTarget
-
             const { tripId, bookingId, messageId } = message_body.dataset;
-
+            
             const rendered_trips = await get_trip(tripId, bookingId)
-            
             placement_space.innerHTML = rendered_trips
-            
-            collapsed_section.show()
-            main_section.scrollIntoView({ behavior:"smooth"})
-            
+            placement_space.querySelector('.boxes').classList.remove('border', 'shadow', 'mb-2')
+
+            msgModal.show()
+                        
             const data = await message_put(messageId)
             if (data.read) {
                 message_body.classList.add('mail_read')
