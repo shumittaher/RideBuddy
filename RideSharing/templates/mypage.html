@@ -94,17 +94,26 @@
         
         async function handle_message_click(event) {
             
-            const msgModal = bootstrap.Modal.getOrCreateInstance(document.getElementById(`msgModal`))
+            const modal_element = document.getElementById(`msgModal`)
+            const msgModal = bootstrap.Modal.getOrCreateInstance(modal_element)
             
             const message_body = event.currentTarget
             const { tripId, bookingId, messageId } = message_body.dataset;
             
             const rendered_trips = await get_trip(tripId, bookingId)
             placement_space.innerHTML = rendered_trips
-            placement_space.querySelector('.boxes').classList.remove('border', 'shadow', 'mb-2')
 
+            const trip_item = placement_space.querySelector('.boxes')
+            trip_item.classList.remove('border', 'shadow', 'mb-2')
+            
             msgModal.show()
-                        
+
+            const show_button = trip_item.querySelector('[type="button"]')
+            modal_element.addEventListener('shown.bs.modal', ()=>{
+                show_button.click()
+            })
+
+            
             const data = await message_put(messageId)
             if (data.read) {
                 message_body.classList.add('mail_read')
