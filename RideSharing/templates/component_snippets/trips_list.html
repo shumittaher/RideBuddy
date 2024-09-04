@@ -7,7 +7,13 @@
             <div style="position: relative;">
                 
                 <div class="border-primary-subtle open_seats_container d-flex justify-content-center align-items-center">
-                    <div id="open_spots_{{trip.trip.id}}" style="color: var(--bs-purple);">
+                    <div id="open_spots_{{trip.trip.id}}"
+                    {% if trip.open_spot %}
+                        style="color: var(--bs-purple);"
+                    {% else %}
+                        style="color: var(--bs-red);"
+                    {% endif %}
+                    >
                         {{trip.open_spot}}
                     </div>
                 

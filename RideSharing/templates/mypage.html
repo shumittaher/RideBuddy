@@ -110,18 +110,21 @@
             const { tripId, bookingId, messageId, messageType } = message_body.dataset;
             
             if (messageType == 'request'){   
-
+                
                 const rendered_trips = await get_trip(tripId, bookingId)
                 placement_space.innerHTML = rendered_trips
                 
                 const trip_item = placement_space.querySelector('.boxes')
                 trip_item.classList.remove('border', 'shadow', 'mb-2')   
                 
-                const show_button = trip_item.querySelector('[type="button"]')
-                modal_element.addEventListener('shown.bs.modal', ()=>{
+                modal_element.addEventListener('shown.bs.modal', show_details)
+                
+                function show_details() {
+                    const show_button = trip_item.querySelector('[type="button"]')
                     show_button.click()
-                })
-            
+                    modal_element.removeEventListener('shown.bs.modal', show_details)
+                }
+                 
             }
             msgModal.show()
 
