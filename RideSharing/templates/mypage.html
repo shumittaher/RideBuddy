@@ -111,21 +111,23 @@
             
             if (messageType == 'request'){   
                 
-                const rendered_trips = await get_trip(tripId, bookingId)
+                rendered_trips = await get_trip(tripId, bookingId)
                 placement_space.innerHTML = rendered_trips
-                
                 const trip_item = placement_space.querySelector('.boxes')
-                trip_item.classList.remove('border', 'shadow', 'mb-2')   
+                trip_item.classList.remove('border', 'shadow', 'mb-2', 'rounded')   
                 
                 modal_element.addEventListener('shown.bs.modal', show_details)
-                
                 function show_details() {
                     const show_button = trip_item.querySelector('.action_button')
                     show_button.click()
                     modal_element.removeEventListener('shown.bs.modal', show_details)
                 }
                  
+            } else if (messageType == 'approval' || messageType == 'rejection') {
+                rendered_trips_approved = await get_trip(tripId, bookingId, true)
+                placement_space.innerHTML = rendered_trips_approved
             }
+                
             msgModal.show()
 
             const data = await message_put(messageId)
@@ -134,8 +136,8 @@
             }
         }
 
-        async function get_trip(trip_id, booking_id) {
-            const response = await fetch(`/give_trips?trip_id=${trip_id}&booking_trips=false&spec_booking=${booking_id}`)   
+        async function get_trip(trip_id, booking_id, info_only = false) {
+            const response = await fetch(`/give_trips?trip_id=${trip_id}&spec_booking=${booking_id}&info_only=${info_only}`)   
             const data = await response.json()
 
             return data.rendered_trips

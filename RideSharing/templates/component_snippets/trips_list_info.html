@@ -1,0 +1,54 @@
+{% for trip in trips %}
+
+<div id="trips_box_{{trip.trip.id}}" class="boxes w-100 mx-auto">
+    <div class="d-flex justify-content-center">
+
+        <div class="flex-fill px-2">
+            <div class="row row-cols-1 gy-3 row-cols-sm-2 border-bottom border-primary-subtle border-2">
+
+                {% include 'component_snippets/location_look.html' with location=trip.trip.origin type='Origin' %}
+                {% include 'component_snippets/location_look.html' with location=trip.trip.destination type='Destination' %}
+                
+            </div>
+            <div class="mt-3 d-sm-flex justify-content-between">
+                <div>
+                    <h6>
+                        Departure Time: <span class="text-primary">{{trip.trip.departure_time}}</span>
+                    </h6>
+                    <h6>
+                        Trip Owner: <span class="text-primary">{{trip.trip.trip_owner|capfirst}}</span>
+                    </h6>
+                    <h6>
+                        Details: <span class="text-primary"> 
+                            {% if trip.desciption_text %}
+                            {{trip.description_text}}
+                            {% else %}
+                            No further details available
+                            {% endif %}</span>
+                    </h6>
+                </div>
+
+                <div class="d-flex align-items-end">
+                    
+                    {% if status %}
+                    <span class="h4 text-end text-success">
+                        <i class="fa-solid fa-check"></i>
+                        Approved 
+                    </span>
+                    {% else %}
+                    <span class="h4 text-end text-danger">
+                        <i class="fa-solid fa-xmark"></i>
+                        Rejected 
+
+                    </span>
+                    {% endif %}
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endfor %}

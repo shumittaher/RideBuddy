@@ -48,37 +48,37 @@
                     </h6>
                 </div>
 
-                <div class="" 
-                style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 5px;">
+                    <div class="" 
+                    style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 5px;">
 
-                    <button class="btn btn-primary" type="button"
-                        data-bs-toggle="collapse" 
-                        data-bs-target="#comments_space_{{trip.trip.id}}" 
-                        aria-expanded="false">
-                        Details
-                    </button>
-                    
-                    <button class="btn btn-primary action_button" type="button" 
-                    
-                    {% if booking_trips %}
-                    onclick="handle_form_fetch(event, true)"
-                    {% else %}
-                    onclick="handle_form_fetch(event, false)"
-                    {% endif %}
-
-                        data-bs-toggle="collapse" 
-                        data-bs-target="#form_space_{{trip.trip.id}}" 
-                        data-targettripid="{{trip.trip.id}}" 
-                        data-spec_booking="{{spec_booking}}" 
-                        aria-expanded="false">
-                        {% if booking_trips %}
-                            Book a Spot
-                            {% else %}
-                            Approvals
-                            {% endif %}
-                    </button>
-                </div>
+                        <button class="btn btn-primary" type="button"
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#comments_space_{{trip.trip.id}}" 
+                            aria-expanded="false">
+                            Details
+                        </button>
                         
+                        <button class="btn btn-primary action_button" type="button" 
+                        
+                        {% if booking_trips %}
+                        onclick="handle_form_fetch(event, true)"
+                        {% else %}
+                        onclick="handle_form_fetch(event, false)"
+                        {% endif %}
+
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#form_space_{{trip.trip.id}}" 
+                            data-targettripid="{{trip.trip.id}}" 
+                            data-spec_booking="{{spec_booking}}" 
+                            aria-expanded="false">
+                                {% if booking_trips %}
+                                    Book a Spot
+                                {% else %}
+                                    Approvals
+                                {% endif %}
+                        </button>
+                    </div>
+                
             </div>
         </div>
     </div>

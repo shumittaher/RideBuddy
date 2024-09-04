@@ -116,15 +116,15 @@ def give_trips(request):
 
     if request.method == 'GET': 
         
+        info_only = request.GET.get('info_only') == 'true'
         booking_trips = request.GET.get('booking_trips') == 'true'
-   
         trip_id = request.GET.get('trip_id')
         spec_booking = request.GET.get('spec_booking')
         
         if trip_id:
-            queryset = [Trips.objects.get(id = trip_id)]
+            queryset = [Trips.objects.get(id = trip_id)]            # specific trip
         
-        else:
+        else:                                                       # filter process
             origin_area = request.GET.get('origin_area', '')
             active_only = request.GET.get('active_only', True)
             if origin_area:
@@ -135,14 +135,26 @@ def give_trips(request):
                 today = timezone.now().date()
                 queryset = queryset.filter(valid_till__gte=today)
         
-        trips = addremaining_spots(queryset)
+        trips = addremaining_spots(queryset)                        # add remaining spots to the tripset
         
-        rendered_trips = render_to_string('component_snippets/trips_list.html', {
-            'trips': trips,
-            'booking_trips': booking_trips,
-            'spec_booking' : spec_booking
-            })
-        
+        if not info_only:
+            rendered_trips = render_to_string('component_snippets/trips_list.html', {
+                'trips': trips,
+                'booking_trips': booking_trips,
+                'spec_booking' : spec_booking,
+                })
+            
+        else:
+            if spec_booking:
+                status = Spot_Bookings.objects.get(pk = spec_booking).approval_status
+            else:
+                status = None
+            rendered_trips = render_to_string('component_snippets/trips_list_info.html', {
+                'trips': trips,
+                'booking_trips': booking_trips,
+                'status' : status
+                })
+            
         return JsonResponse({'rendered_trips': rendered_trips})
     
 def booking_request(request):
@@ -242,6 +254,7 @@ def give_bookingreqs_list(request, trip_id):
     }
 
     spec_booking = request.GET.get('spec_booking')
+    
     if spec_booking:
         filter_dict['id'] = spec_booking
 
