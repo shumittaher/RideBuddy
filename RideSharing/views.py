@@ -117,6 +117,7 @@ def give_trips(request):
     if request.method == 'GET': 
         
         booking_trips = request.GET.get('booking_trips') == 'true'
+        print(booking_trips)
         trip_id = request.GET.get('trip_id')
         spec_booking = request.GET.get('spec_booking')
         
