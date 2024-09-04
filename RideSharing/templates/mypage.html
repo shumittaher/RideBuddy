@@ -120,7 +120,7 @@
                 modal_element.addEventListener('shown.bs.modal', show_details)
                 
                 function show_details() {
-                    const show_button = trip_item.querySelector('[type="button"]')
+                    const show_button = trip_item.querySelector('.action_button')
                     show_button.click()
                     modal_element.removeEventListener('shown.bs.modal', show_details)
                 }

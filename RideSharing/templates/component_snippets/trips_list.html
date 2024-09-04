@@ -48,26 +48,51 @@
                     </h6>
                 </div>
 
-                <button class="btn btn-primary" type="button" 
+                <div class="" 
+                style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 5px;">
+
+                    <button class="btn btn-primary" type="button"
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#comments_space_{{trip.trip.id}}" 
+                        aria-expanded="false">
+                        Details
+                    </button>
+                    
+                    <button class="btn btn-primary action_button" type="button" 
                     
                     {% if booking_trips %}
-                        onclick="handle_form_fetch(event, true)"
+                    onclick="handle_form_fetch(event, true)"
                     {% else %}
-                        onclick="handle_form_fetch(event, false)"
+                    onclick="handle_form_fetch(event, false)"
                     {% endif %}
 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#form_space_{{trip.trip.id}}" 
-                    data-targettripid="{{trip.trip.id}}" 
-                    data-spec_booking="{{spec_booking}}" 
-                    aria-expanded="false">
-                    {% if booking_trips %}
-                        Book a Spot
-                    {% else %}
-                        View Details
-                    {% endif %}
-                </button>
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#form_space_{{trip.trip.id}}" 
+                        data-targettripid="{{trip.trip.id}}" 
+                        data-spec_booking="{{spec_booking}}" 
+                        aria-expanded="false">
+                        {% if booking_trips %}
+                            Book a Spot
+                            {% else %}
+                            Approvals
+                            {% endif %}
+                    </button>
+                </div>
+                        
             </div>
+        </div>
+    </div>
+
+    <div class="collapse" id="comments_space_{{trip.trip.id}}">
+        
+        <div class="pt-3 px-2">
+
+            {% if trip.desciption_text %}
+            {{trip.description_text}}
+            {% else %}
+            No further details available
+            {% endif %}
+            
         </div>
     </div>
     
