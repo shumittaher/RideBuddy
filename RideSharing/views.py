@@ -72,11 +72,13 @@ def index(request):
 @login_required(login_url ='/login')
 def mypage(request, user_id):
     user = User.objects.get(id=user_id)
-    my_messages = user.message_recipient.all()
+    unread_messages = user.message_recipient.filter(read = False)
+    read_messages = user.message_recipient.filter(read = True)
     
     return render(request, "mypage.html", {
         'recipient' : user,
-        'my_messages' : my_messages
+        'unread_messages' : unread_messages,
+        'read_messages' : read_messages
     })
 
 @login_required(login_url ='/login')

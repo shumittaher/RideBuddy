@@ -1,0 +1,59 @@
+<li 
+    onclick="handle_message_click(event)" 
+    data-message-id="{{message.id}}" 
+    data-trip-id="{{message.underlying_trip.id}}" 
+    data-booking-id="{{message.underlying_booking.id}}"
+    data-message-type="{{message.message_type}}"
+    class="d-sm-flex border booking_row {% if message.read %} mail_read {% endif %}"
+    >   
+        <div class="d-none d-sm-block">
+            <div class="border border-5 m-2 d-flex justify-content-center align-items-center" 
+            style="font-size: 3rem; min-height: 6rem; min-width: 6rem; border-radius: 50%;">
+                {% if message.system_message %}
+                <i class="fa-solid fa-robot"></i>
+                {% else %}
+                <i class="fa-solid fa-user"></i>
+                {% endif %}
+            </div>
+        
+        </div>
+
+        <div class="flex-fill p-2">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <strong>From:</strong> 
+                    {% if message.sender %}
+                        {{ message.sender.username }}
+                    {% else %}
+                        System Generated
+                    {% endif %}
+                </div>
+                <hr>
+                <div>
+                    {{ message.time_stamp|date:"F j, Y" }}
+                </div>
+            </div>
+            <div>
+                <strong>Message:</strong> {{ message.content }}
+            </div>
+        </div>
+    
+        <div class="d-none d-sm-block">
+
+            <div class="border m-2 border-5 d-flex justify-content-center align-items-center" 
+            style="font-size: 3rem; min-height: 6rem; min-width: 6rem; border-radius: 50%;">
+            
+                {% if message.message_type == 'request' %}
+                <i class="fa-solid fa-bell"></i>
+                {% elif message.message_type == 'approval' %}
+                <i class="fa-solid fa-check"></i>
+                {% elif message.message_type == 'rejection' %}
+                <i class="fa-solid fa-xmark"></i>
+                {% else %}
+                <i class="fa-solid fa-comment"></i>
+                {% endif %}
+                
+            </div>
+        </div>
+
+</li>

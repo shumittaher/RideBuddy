@@ -42,7 +42,8 @@ function fetchActiveRoute() {
 
 function updateActiveStatus() {
     
-    let links = document.querySelectorAll(".nav-link")
+    let top_bar = document.getElementById("top_bar")
+    let links = top_bar.querySelectorAll(".nav-link")
     let activeRoute = fetchActiveRoute()
     
     links.forEach((link)=>{

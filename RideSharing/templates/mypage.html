@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-   : My Page
+   : My Messages
 {% endblock %}
 
 {% block body %}
@@ -23,72 +23,55 @@
     </div>
 
     <h2 class="text-center">Messages for {{ recipient.username|capfirst }}</h2>
+    <div class="boxes p-0 mx-auto">
 
-    <ul class="boxes mx-auto list-unstyled">
-        {% for message in my_messages %}
-            <li 
-            onclick="handle_message_click(event)" 
-            data-message-id="{{message.id}}" 
-            data-trip-id="{{message.underlying_trip.id}}" 
-            data-booking-id="{{message.underlying_booking.id}}"
-            data-message-type="{{message.message_type}}"
-            class="d-sm-flex border rounded booking_row {% if message.read %} mail_read {% endif %}"
-            >   
-                <div class="d-none d-sm-block">
-                    <div class="border m-2 border-5 d-flex justify-content-center align-items-center" 
-                    style="font-size: 3rem; min-height: 6rem; min-width: 6rem; border-radius: 50%;">
-                        {% if message.system_message %}
-                        <i class="fa-solid fa-robot"></i>
-                        {% else %}
-                        <i class="fa-solid fa-user"></i>
-                        {% endif %}
-                    </div>
-                
-                </div>
-
-                <div class="flex-fill p-2">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <strong>From:</strong> 
-                            {% if message.sender %}
-                                {{ message.sender.username }}
-                            {% else %}
-                                System Generated
-                            {% endif %}
-                        </div>
-                        <hr>
-                        <div>
-                            {{ message.time_stamp|date:"F j, Y" }}
-                        </div>
-                    </div>
-                    <div>
-                        <strong>Message:</strong> {{ message.content }}
-                    </div>
-                </div>
-            
-                <div class="d-none d-sm-block">
-
-                    <div class="border m-2 border-5 d-flex justify-content-center align-items-center" 
-                    style="font-size: 3rem; min-height: 6rem; min-width: 6rem; border-radius: 50%;">
-                    
-                        {% if message.message_type == 'request' %}
-                        <i class="fa-solid fa-bell"></i>
-                        {% elif message.message_type == 'approval' %}
-                        <i class="fa-solid fa-check"></i>
-                        {% elif message.message_type == 'rejection' %}
-                        <i class="fa-solid fa-xmark"></i>
-                        {% else %}
-                        <i class="fa-solid fa-comment"></i>
-                        {% endif %}
-                        
-                    </div>
-                </div>
-
-            </li>
-        {% empty %}
-            <li>No messages found.</li>
-        {% endfor %}
+    <ul class="mt-3 nav nav-tabs justify-content-center" id="myTab" role="tablist">
+        
+        <li class="nav-item" role="presentation">
+            <button style="width: 8rem;" class="nav-link active" id="unread-tab" data-bs-toggle="tab" data-bs-target="#unread" type="button" role="tab" aria-controls="unread" aria-selected="true">Unread</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button style="width: 8rem;" class="nav-link" id="read-tab" data-bs-toggle="tab" data-bs-target="#read" type="button" role="tab" aria-controls="read" aria-selected="false">Read</button>
+        </li>
     </ul>
+
+    <div class="tab-content border border-top-0">
+        <div class="tab-pane active" 
+        id="unread" 
+        role="tabpanel" 
+        aria-labelledby="unread-tab" 
+        tabindex="0">
+
+            <ul class="list-unstyled mb-0">
+
+                {% for message in unread_messages %}
+                    {% include 'component_snippets/mypage_messagelist.html' with message=message %}
+                {% empty %}
+                    <div class="p-5 d-flex justify-content-center fs-3">No  new messages found.</div>
+                {% endfor %}
+
+            </ul>
+        </div>
+
+        <div class="tab-pane" 
+        id="read" 
+        role="tabpanel" 
+        aria-labelledby="read-tab" 
+        tabindex="0">
+            
+            <ul class="list-unstyled mb-0">
+
+                {% for message in read_messages %}
+                    {% include 'component_snippets/mypage_messagelist.html' with message=message %}
+                {% empty %}
+                    <li>No messages found.</li>
+                {% endfor %}
+                
+            </ul>
+
+        </div>
+    </div>
+</div>
 
     <script>
 
