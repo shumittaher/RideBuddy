@@ -7,6 +7,8 @@ from django.utils import timezone
 from django.template.loader import render_to_string
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+
 
 import json
 
@@ -71,14 +73,25 @@ def index(request):
 
 @login_required(login_url ='/login')
 def mypage(request, user_id):
+
+    page_no_unread = request.GET.get('page_no_unread', 1)
+    page_no_read = request.GET.get('page_no_read', 1)
+    active_side = request.GET.get('active_side', 'unread')
+    items_per_page = request.GET.get('items_per_page', 10)
+
     user = User.objects.get(id=user_id)
-    unread_messages = user.message_recipient.filter(read = False)
-    read_messages = user.message_recipient.filter(read = True)
-    
+
+    unread_paginator = Paginator(user.message_recipient.filter(read = False), items_per_page)
+    read_paginator = Paginator(user.message_recipient.filter(read = True), items_per_page)
+
+    unread_messages = unread_paginator.get_page(page_no_unread)
+    read_messages = read_paginator.get_page(page_no_read)
+
     return render(request, "mypage.html", {
         'recipient' : user,
         'unread_messages' : unread_messages,
-        'read_messages' : read_messages
+        'read_messages' : read_messages,
+        'active_side': active_side
     })
 
 @login_required(login_url ='/login')
