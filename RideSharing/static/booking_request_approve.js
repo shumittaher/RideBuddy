@@ -84,11 +84,22 @@ function update_row_look(row_id, message, status) {
 function handle_showBookingReq(event) {
 
     itemId = event.currentTarget.dataset.reqId
+    modalType = event.currentTarget.dataset.modalType
 
-    const infoModal = document.getElementById(`infoModal-${itemId}`)
-    
-    const modal = new bootstrap.Modal(infoModal)
+    let modal_element_id;
 
-    modal.show()
+    switch (modalType) {
+        case 'deleteModal':
+            modal_element_id = `deleteModal-${itemId}`
+            break;
+        case 'infoModal':
+            modal_element_id = `infoModal-${itemId}`
+            break;
+    }
+
+    const modal_element = document.getElementById(modal_element_id)
+    const modal_bs = new bootstrap.Modal(modal_element)
+
+    modal_bs.show()
 
 }

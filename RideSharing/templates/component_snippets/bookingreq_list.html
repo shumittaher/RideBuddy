@@ -19,7 +19,10 @@
 
             {% for item in bookingreq_list %}
 
-                <tr id="requestrow-{{item.id}}" data-req-id="{{item.id}}" class="booking_row" onclick="handle_showBookingReq(event)">
+                <tr id="requestrow-{{item.id}}" 
+                data-modal-type="infoModal" 
+                data-req-id="{{item.id}}" class="booking_row" 
+                onclick="handle_showBookingReq(event)">
 
                     <td>
 
@@ -59,13 +62,11 @@
                                 class="btn btn-primary me-0 me-sm-1 mb-1 mb-sm-0" type="button">
                                 <i class="fa-regular fa-circle-check"></i>
                             </button>
-                                <!-- <i class="fa-solid fa-circle-check"></i> -->
                             
-                            <button onclick="event.stopPropagation();"
-                                data-bs-toggle="modal" data-bs-target="#deleteModal-{{item.id}}"
+                            <button onclick="event.stopPropagation(); handle_showBookingReq(event)"
+                                data-modal-type="deleteModal" data-req-id="{{item.id}}" 
                                 class="btn btn-primary" type="button">
                                 <i class="fa-regular fa-circle-xmark"></i>
-                                <!-- <i class="fa-solid fa-circle-xmark"></i> -->
                             </button>
                         </div>
                     </td>
