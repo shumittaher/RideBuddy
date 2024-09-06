@@ -42,36 +42,10 @@
         aria-labelledby="unread-tab" 
         tabindex="0">
 
-            <ul class="list-unstyled mb-0">
-
-                {% for message in unread_messages %}
-                    {% include 'component_snippets/mypage_messagelist.html' with message=message %}
-                {% empty %}
-                    <div class="p-5 d-flex justify-content-center fs-3">No  new messages found.</div>
-                {% endfor %}
-
-            </ul>
-            
-
-            <div>
-                <ul>
-                    {% if unread_messages.has_previous %}
-                        <li><a href="?active_side=unread&page_no_unread={{ unread_messages.previous_page_number }}">Previous</a></li>
-                    {% endif %}
-                    
-                    {% for num in unread_messages.paginator.page_range %}
-                        <li>
-                            <a href="?active_side=unread&page_no_unread={{ num }}">{{ num }}</a>
-                        </li>
-                    {% endfor %}
-                    
-                    {% if unread_messages.has_next %}
-                        <li><a href="?active_side=unread&page_no_unread={{ unread_messages.next_page_number }}">Next</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-            
+  
+            {% include 'component_snippets/mypage_messagelistbox.html' with messages=unread_messages active_side='unread' %}
         </div>
+
 
         <div class="tab-pane {% if active_side == 'read' %} active {% endif %}" 
         id="read" 
@@ -79,33 +53,9 @@
         aria-labelledby="read-tab" 
         tabindex="0">
             
-            <ul class="list-unstyled mb-0">
+           
+            {% include 'component_snippets/mypage_messagelistbox.html' with messages=read_messages active_side='read' %}
 
-                {% for message in read_messages %}
-                    {% include 'component_snippets/mypage_messagelist.html' with message=message %}
-                {% empty %}
-                    <li>No messages found.</li>
-                {% endfor %}
-                
-            </ul>
-
-            <div>
-                <ul>
-                    {% if read_messages.has_previous %}
-                        <li><a href="?active_side=read&page_no_read={{ read_messages.previous_page_number }}">Previous</a></li>
-                    {% endif %}
-                    
-                    {% for num in read_messages.paginator.page_range %}
-                        <li>
-                            <a href="?active_side=read&page_no_read={{ num }}">{{ num }}</a>
-                        </li>
-                    {% endfor %}
-                    
-                    {% if read_messages.has_next %}
-                        <li><a href="?active_side=read&page_no_read={{ read_messages.next_page_number }}">Next</a></li>
-                    {% endif %}
-                </ul>
-            </div>
 
         </div>
     </div>

@@ -1,0 +1,29 @@
+    <ul class="list-unstyled mb-0">
+
+        {% for message in messages %}
+            {% include 'component_snippets/mypage_messagelist.html' with message=message %}
+        {% empty %}
+            <div class="p-5 d-flex justify-content-center fs-3">No  new messages found.</div>
+        {% endfor %}
+
+    </ul>
+    <hr>
+    <nav aria-label="Page navigation">
+
+        <ul class="pagination d-flex justify-content-center align-items-center list-unstyled">
+            {% if messages.has_previous %}
+            <li class="page-item"><a class="page-link" href="?active_side={{active_side}}&page_no_{{active_side}}={{ messages.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            
+            {% for num in messages.paginator.page_range %}
+            <li class="page-item">
+                <a class="page-link {% if num == messages.number %} active {% endif %}" href="?active_side={{active_side}}&page_no_{{active_side}}={{ num }}">{{ num }}</a>
+            </li>
+            {% endfor %}
+            
+            {% if messages.has_next %}
+            <li class="page-item"><a class="page-link" href="?active_side={{active_side}}&page_no_{{active_side}}={{ messages.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+        
