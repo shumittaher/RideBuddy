@@ -72,13 +72,13 @@ def index(request):
     return render(request, "index.html")
 
 @login_required(login_url ='/login')
-def mypage(request, user_id):
+def mypage(request):
 
     page_no_unread = request.GET.get('page_no_unread', 1)
     page_no_read = request.GET.get('page_no_read', 1)
     active_side = request.GET.get('active_side', 'unread')
     items_per_page = request.GET.get('items_per_page', 10)
-
+    user_id = request.user.id
     user = User.objects.get(id=user_id)
 
     unread_paginator = Paginator(user.message_recipient.filter(read = False), items_per_page)
@@ -208,7 +208,7 @@ def booking_request(request):
                     })
             else:
                 return JsonResponse({
-                    "message": "Insiffcient Seats", 
+                    "message": "Insuffcient Seats", 
                     "open_spots" : find_remaining_spots(underlying_trip),
                     "status": "warning"
                     })
