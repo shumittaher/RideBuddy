@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', ()=>{
+
     updateActiveStatus()
 
-    const unread_messagecount_space = document.getElementById('unread_messagecount_space')
+    unread_messagecount_space = document.getElementById('unread_messagecount_space')
 
     if (unread_messagecount_space) {
         update_unread_looks()
@@ -42,7 +43,6 @@ function fetchActiveRoute() {
 
 function updateActiveStatus() {
     
-    let top_bar = document.getElementById("top_bar")
     let links = top_bar.querySelectorAll(".nav-link")
     let activeRoute = fetchActiveRoute()
     
@@ -57,5 +57,16 @@ function updateActiveStatus() {
         }
 
     })
+
+    document.addEventListener('scroll', ()=>{
+
+        if (window.scrollY === 0) {
+            top_bar.classList.add("at_top");
+        } else {
+            top_bar.classList.remove("at_top");
+        }
+
+    })
+
 
 }

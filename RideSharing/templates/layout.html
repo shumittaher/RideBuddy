@@ -29,7 +29,7 @@
         </style>
 
         </head>
-        <body >
+        <body>
 
             {% include 'component_snippets/navbar.html' %}
 
@@ -46,7 +46,12 @@
                 </ul>
             {% endif %}
 
-                <div id="main_section" class="container-lg pt-2 pt-sm-5">
+            {% block hero %}
+
+            {% endblock %}
+
+            <div id="main_section" class="container-lg pt-3 pt-sm-5" 
+            style="margin-top: 4rem;">
                 
                 {% block body %}
 
