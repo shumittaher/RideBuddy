@@ -61,11 +61,11 @@ function updateActiveStatus() {
     document.addEventListener('scroll', ()=>{
 
         if (window.scrollY === 0) {
-            top_bar.classList.add("at_top");
+            top_bar.classList.add("at_top", "navbar-dark");
             top_bar.classList.remove("not_at_top");
         } else {
             top_bar.classList.add("not_at_top");
-            top_bar.classList.remove("at_top");
+            top_bar.classList.remove("at_top", "navbar-dark");
         }
 
     })
