@@ -140,18 +140,24 @@ def give_trips(request):
             queryset = [Trips.objects.get(id = trip_id)]            # specific trip
         
         else:                                                       # filter process
+            filter_dict = {}
             origin_area = request.GET.get('origin_area', '')
             destination_area = request.GET.get('destination_area', '')
             active_only = request.GET.get('active_only', True)
+            
+            queryset = Trips.objects.all()
 
             if origin_area:
-                queryset = Trips.objects.filter(origin__location_area=origin_area)
+                filter_dict["origin__location_area"] = origin_area
             
-            else:
-                queryset = Trips.objects.all()
+            if destination_area:
+                filter_dict["destination__location_area"] = destination_area
+ 
             if active_only:
                 today = timezone.now().date()
-                queryset = queryset.filter(valid_till__gte=today)
+                filter_dict["valid_till__gte"] = today
+
+            queryset = queryset.filter(**filter_dict)
         
         trips = addremaining_spots(queryset)                        # add remaining spots to the tripset
         
