@@ -157,7 +157,7 @@ def give_trips(request):
                 today = timezone.now().date()
                 filter_dict["valid_till__gte"] = today
 
-            queryset = queryset.filter(**filter_dict)
+            queryset = queryset.filter(**filter_dict).order_by('departure_time')
         
         trips = addremaining_spots(queryset)                        # add remaining spots to the tripset
         
