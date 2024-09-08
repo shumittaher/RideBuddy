@@ -81,8 +81,8 @@ def mypage(request):
     user_id = request.user.id
     user = User.objects.get(id=user_id)
 
-    unread_paginator = Paginator(user.message_recipient.filter(read = False), items_per_page)
-    read_paginator = Paginator(user.message_recipient.filter(read = True), items_per_page)
+    unread_paginator = Paginator(user.message_recipient.filter(read = False).order_by('-time_stamp'), items_per_page)
+    read_paginator = Paginator(user.message_recipient.filter(read = True).order_by('-time_stamp'), items_per_page)
 
     unread_messages = unread_paginator.get_page(page_no_unread)
     read_messages = read_paginator.get_page(page_no_read)
@@ -141,9 +141,12 @@ def give_trips(request):
         
         else:                                                       # filter process
             origin_area = request.GET.get('origin_area', '')
+            destination_area = request.GET.get('destination_area', '')
             active_only = request.GET.get('active_only', True)
+
             if origin_area:
-                queryset = Trips.objects.filter(origin=origin_area)
+                queryset = Trips.objects.filter(origin__location_area=origin_area)
+            
             else:
                 queryset = Trips.objects.all()
             if active_only:

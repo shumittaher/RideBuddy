@@ -4,7 +4,7 @@
 
 <section class="text-center">
 
-    <form action="" method="post" style="max-width: 700px;" class="mx-auto">
+    <form id="filter_form" action="" method="post" style="max-width: 700px;" class="mx-auto">
 
         {{ search_form }}
 
@@ -20,22 +20,40 @@
 
 // location area search box functionality
 
-    const search_form_area = document.getElementById('location-area-searchbox');
+    const location_area_searchbox = document.getElementById('location-area-searchbox');
+    const destination_area_searchbox = document.getElementById('destination-area-searchbox');
+    const filter_form = document.getElementById('filter_form');
+    const formData = new FormData(filter_form);
+
     const searchResults = document.getElementById('search_results');
 
     document.addEventListener('DOMContentLoaded', ()=>{
 
         fetch_trips()
-        search_form_area.addEventListener('change', ()=>handle_searcharea_change(search_form_area.value))
+
+        const searchboxes = filter_form.querySelectorAll('select')
+
+        searchboxes.forEach((searchbox)=>{
+            searchbox.addEventListener('change', ()=>handle_searcharea_change(filter_form))
+        })
     })
 
-    function handle_searcharea_change(area_code) {
-        fetch_trips(area_code)
+    function handle_searcharea_change(filter_form) {
+
+        const area_codes =  new FormData(filter_form)
+
+        const formValues = {};
+        area_codes.forEach((value, key) => {
+            formValues[key] = value;
+        });
+
+        const {location_area, destination_area} = formValues
+        fetch_trips(location_area, destination_area)
     }
 
-    async function fetch_trips(area_code = ''){
+    async function fetch_trips(area_code = '', area_code_dest = ''){
 
-        const response = await fetch(`give_trips?origin_area=${area_code}&booking_trips=true`)
+        const response = await fetch(`give_trips?origin_area=${area_code}&destination_area=${area_code_dest}&booking_trips=true`)
         if (response.ok) {
             const updatedTrips = await response.json();
             updateTripsList(updatedTrips.rendered_trips); 

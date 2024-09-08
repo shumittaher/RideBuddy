@@ -99,7 +99,14 @@ class LocationSearchForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['location_area'] = forms.ChoiceField(
-            choices=[('','All Locations')] + [(loc.id, loc.location_area) for loc in Locations.objects.all()],
+
+        location_areas = Locations.objects.order_by('location_area').values_list('location_area', flat=True).distinct()
+
+        self.fields['location_area'] = forms.ChoiceField(label="Starting Area",
+            choices=[('','All Locations')] + [(loc_area, loc_area) for loc_area in location_areas],
             widget=forms.Select(attrs={'class': 'form-control', 'id': 'location-area-searchbox'})
+        )
+        self.fields['destination_area'] = forms.ChoiceField(label="Destination Area",
+            choices=[('','All Locations')] + [(loc_area, loc_area) for loc_area in location_areas],
+            widget=forms.Select(attrs={'class': 'form-control', 'id': 'destination-area-searchbox'})
         )
