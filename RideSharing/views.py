@@ -69,7 +69,9 @@ def register(request):
         return render(request, "register.html")
 
 def index(request):
-    return render(request, "index.html")
+    return render(request, "index.html", {
+        'hero': True 
+    })
 
 @login_required(login_url ='/login')
 def mypage(request):

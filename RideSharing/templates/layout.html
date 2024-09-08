@@ -44,20 +44,16 @@
                         <li class="list-item">{{ message }}</li>
                     {% endfor %}
                 </ul>
-            {% endif %}
-        
-            {% block hero %}
-            
-            {% endblock %}
+            {% endif %}            
 
-            
-            <div id="main_section" class="container-lg pt-3 pt-sm-5" 
-            style="margin-top: 5rem;">
-                
-                {% block body %}
-
-                {% endblock %}
-
+            <div 
+                {% if hero %}
+                {% else %}
+                id="main_section" class="container-lg pt-3 pt-sm-5" 
+                style="margin-top: 4.5rem;"
+                {% endif %}
+                >
+                    {% block body %}{% endblock %}
             </div>
 
             <script>
