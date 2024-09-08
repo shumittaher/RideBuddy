@@ -83,6 +83,16 @@
     color: gray;
 }
 
+#top_bar {
+    transition: all .3s ease;
+}
+
 .at_top{
+    height: 6rem; 
     background-color: rgba(white, 0.5) !important;
+    border-width: 0px !important;
+}
+
+.not_at_top{
+    height: 4rem;
 }
