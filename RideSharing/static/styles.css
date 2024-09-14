@@ -159,6 +159,15 @@ body {
 .postions {
   position: absolute;
   transform: translate(-50%, -50%);
+  transition: all 0.5s ease-in-out;
+}
+
+.postions > a {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  text-decoration: none;
+  color: white;
 }
 
 .positionA {

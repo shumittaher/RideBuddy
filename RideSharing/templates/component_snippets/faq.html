@@ -47,17 +47,21 @@
 
         <div class="col">
 
+            
             <div class="w-100 position-relative h-100" style="min-height: 550px;">
+                <button onclick="handle_change(event)">change button</button>
 
-                <div class="position-absolute d-inline-block border rounded postions positionA">
+                <div class="position-absolute d-inline-block border rounded postions x positionA">
                     
                     <img src="../static/imgs/hero/woman-with-mask-headphones-train-optimized.jpg"
                     class="rounded"
                     style="width: 300px; height: 400px; object-fit: cover;">
+
+                    <a href="https://www.freepik.com/free-photo/gamification-creative-collage-concept_25598773.htm#fromView=search&page=1&position=7&uuid=11e362f2-a71b-4090-9907-5611b799faad">Image by freepik</a>
                     
                 </div>
 
-                <div class="position-absolute d-inline-block border rounded postions positionB">
+                <div class="position-absolute d-inline-block border rounded postions y positionB">
                     
                     <img src="../static/imgs/hero/woman-with-mask-headphones-train-optimized.jpg"
                     class="rounded"
@@ -65,7 +69,7 @@
                    
                 </div>
 
-                <div class="position-absolute d-inline-block border rounded postions positionC">
+                <div class="position-absolute d-inline-block border rounded postions z positionC">
                     
                     <img src="../static/imgs/hero/woman-with-mask-headphones-train-optimized.jpg"
                     class="rounded"
@@ -80,3 +84,28 @@
     </div>
 
 </div>
+
+<script>
+
+    function handle_change(event) {
+
+        target_parent = event.currentTarget.parentNode
+
+        array_of_classes = ['positionA', 'positionB', 'positionC']
+        
+        array_of_classes.forEach((className, index) => {
+            
+            target_divs = target_parent.querySelectorAll(`.${className}:not(.exclude)`)
+            target_div = target_divs[0]
+            target_div.classList.remove(className)
+            target_div.classList.add(array_of_classes.at(index - 1), 'exclude')
+
+        });
+
+        target_parent.querySelectorAll('.exclude').forEach(item=>{
+            item.classList.remove('exclude')
+        })
+
+    }
+
+</script>
