@@ -4,7 +4,7 @@
 
         <div class="col p-3 d-flex align-items-center">
             
-            <div style="height: fit-content;" class="w-100 border bg-primary rounded border-5 border-primary accordion" onclick="handle_accordion_click()" id="accordionPanelsStayOpenExample">
+            <div style="height: fit-content;" class="w-100 border bg-primary rounded border-5 border-primary accordion" onclick="handle_accordion_click()" id="accordionFAQ">
                 
                 {% for item in faq %}
 
@@ -14,13 +14,15 @@
                         type="button" data-bs-toggle="collapse" 
                         data-bs-target="#panelsStayOpen-collapse{{item.id}}" 
                         aria-expanded="{% if item.id == 1 %}true{% else %}false{% endif %}" aria-controls="panelsStayOpen-collapse{{item.id}}">
-                            {{item.question}}
+                            <b>
+                                {{item.question}}
+                            </b>
                         </button>
                     </h2>
-                    <div id="panelsStayOpen-collapse{{item.id}}" 
+                    <div id="panelsStayOpen-collapse{{item.id}}" data-bs-parent="#accordionFAQ"
                     class="accordion-collapse collapse {% if item.id == 1 %}show{% endif %}">
                         <div class="accordion-body">
-                            {{item.answer}}    
+                            {{item.answer|safe}}    
                         </div>
                     </div>
                 </div>
