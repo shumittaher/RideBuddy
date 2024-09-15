@@ -2,9 +2,9 @@
 
     <div class="row row-cols-1 row-cols-md-2 g-0 mx-auto" style="overflow: hidden;">
 
-        <div class="col p-3">
+        <div class="col p-3 d-flex align-items-center">
             
-            <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div style="height: fit-content;" class="w-100 border bg-primary rounded border-5 border-primary accordion" onclick="handle_accordion_click()" id="accordionPanelsStayOpenExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
@@ -52,8 +52,7 @@
             <div class="position-absolute circle circleB"></div>
 
             
-            <div class="w-100 position-relative h-100" style="min-height: 550px;">
-                <button onclick="handle_change(event)">change button</button>
+            <div class="w-100 position-relative h-100" id="card_shuffle_div" style="min-height: 550px;">
 
                 <div class="position-absolute d-inline-block border rounded postions positionA">
                     
@@ -94,9 +93,13 @@
 
 <script>
 
-    function handle_change(event) {
+    function handle_accordion_click() {
+        handle_change()
+    }
 
-        target_parent = event.currentTarget.parentNode
+    function handle_change() {
+
+        target_parent = document.getElementById('card_shuffle_div')
 
         array_of_classes = ['positionA', 'positionB', 'positionC']
         
