@@ -171,13 +171,13 @@ body{
 .postions{
 
     position: absolute;
-    transform: translate(-50%, -50%);
     transition: all .5s ease-in-out;
+    transform-origin: 0% 100%;
 
 }
 
 .postions>a{
-
+    
     position: absolute;
     right:0; 
     bottom: 0;
@@ -187,21 +187,58 @@ body{
 }
 
 .positionA{
-
+    
     top: 50%;
-    left: 40%;
+    left: 45%;
     z-index: 3;
+    
+    transform: translate(-50%, -50%) rotate(-5deg);
 }
 .positionB{
-
+    
     top: 52%;
     left: 50%;
     z-index: 2;
+    
+    transform: translate(-50%, -50%);
 }
 .positionC{
-
+    
     top: 54%;
-    left: 60%;
+    left: 55%; 
     z-index: 1;
+    
+    transform: translate(-50%, -50%) rotate(5deg);
 }
 
+.circle{
+    z-index: -1;
+    border-radius: 50%;         
+    transform: translate(-50%, -50%);
+}
+
+.circleC{
+    height: 100cqw;              
+    width: 100cqw;               
+    background: radial-gradient(circle, #404, var(--bs-purple)); 
+    left: 105%;
+    top: 60%;
+
+}
+.circleA{
+    height: 35cqw;              
+    width: 35cqw;               
+    background: radial-gradient(circle, #ff7e5f, #feb47b); 
+    left: 20%;
+    top: 30%;
+
+}
+.circleB{
+    height: 700px;              
+    width: 700px;               
+    background: radial-gradient(circle, lightpink, rgb(234, 87, 112)); 
+    left: 15%;
+    bottom: -500px;
+    transform: translate(-50%);
+
+}
