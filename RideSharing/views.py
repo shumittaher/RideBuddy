@@ -12,7 +12,7 @@ from django.core.paginator import Paginator
 
 import json
 
-from .models import User, Trips, Spot_Bookings, Messages
+from .models import User, Trips, Spot_Bookings, Messages, FAQ
 from .forms import TripsForm, LocationSearchForm, BookingRequestCommentBox
 from .utils import make_booking_form, find_remaining_spots, addremaining_spots, send_message
 
@@ -69,8 +69,12 @@ def register(request):
         return render(request, "register.html")
 
 def index(request):
+
+    faq = FAQ.objects.all()
+
     return render(request, "index.html", {
-        'hero': True 
+        'faq': faq,
+        'hero': True
     })
 
 @login_required(login_url ='/login')

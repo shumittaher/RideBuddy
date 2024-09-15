@@ -61,5 +61,12 @@ class Messages(models.Model):
     underlying_booking = models.ForeignKey(Spot_Bookings, on_delete=models.SET_NULL, null=True, blank=True)
     message_type = models.CharField(max_length=10, choices=MESSAGE_TYPE_CHOICES)
     
+class FAQ(models.Model):
+    question = models.CharField(max_length=255)
+    answer = models.TextField()
+
+    def __str__(self):
+        return self.question
+
 
 
