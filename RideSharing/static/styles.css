@@ -222,4 +222,28 @@ body {
   transform: translate(-50%);
 }
 
+footer {
+  background-color: #343a40;
+  color: #ffffff;
+  padding: 2rem 0;
+}
+
+footer a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #f8f9fa;
+}
+
+footer i {
+  margin-right: 0.5rem;
+}
+
+footer .social-icons a {
+  color: #ffffff;
+  margin-right: 1rem;
+}
+
 /*# sourceMappingURL=styles.css.map */
