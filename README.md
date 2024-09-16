@@ -1,5 +1,14 @@
 # RideBuddy
 ## About the Project
+
+TThis web app addresses a socio-economic problem in Bangladesh, where I reside. In the capital city, Dhaka, many schools provide a bus service. However, most parents are unable to rely on the city's public transportation system to be safe or timely enough for their children's daily commute to and from school.
+
+The app aims to solve this issue by creating a platform for carpooling among students from the same school who live in the same residential area. This solution not only helps reduce the stress of parents who do not own a car but also offers a safer alternative to public transport. Additionally, it benefits the city by reducing the number of cars on the road, contributing to less traffic and lower emissions.
+
+## Distinctiveness and Complexity
+
+the app utilizes 5 different models other than the Django built-in model for users. 
+
 ### Features
 #### Installation
 ##### Usage
