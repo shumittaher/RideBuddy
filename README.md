@@ -12,7 +12,15 @@ the app utilizes 5 different models other than the Django built-in model for use
 
 1. Locations: This model is to store individual embarcation and disembarcation locations. Their type, as in, whether it is a school or a residential area, as well as other optional directional information about that location. This table is not editable by the common user of the app. It is meant to be edited from the admin module.
 
-2. Trips: this is to be used
+2. Trips: this table is to be used as the main storage where all of the rides created by users are stored. All the of relevant trip details are stored here.
+
+3. Spot Bookings: When a trip is booked by other users, it creates a booking in this table which is linked to the trip on a one to many relationship.
+
+4. Messages: When a booking request is made and also when a booking is accepted or rejected an auto generated message is created for informing the relevant party. These messages are stored in the table.
+
+5. FAQ: This table contains questions and answers for the FAQ section. Can be changed from admin module only.
+
+
 
 ### Features
 #### Installation
