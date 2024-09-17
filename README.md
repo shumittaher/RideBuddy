@@ -44,6 +44,12 @@ the 'mypage' view is the page where the user can see messages pertaining to them
 #### make_trip:
 This is the page mainly to be used by trip creators. New trips creation and editting of existing pages will be done from here. Hence, this page also requires user to be logged in. 
 
+In this view, Django send the 'make_trip.html' template to the browser. the context includes the trip making form as well as the active trips fetched from the relevant model for the active user. 
+
+The form interface within the page is first rendered from Template: "form_snippets/form.html". this template is used in multiple other places to make most forms look similar within the app.
+
+Active trips are determined by comparing present date against the date and duration of the trip when it was opened. timezone from django.utils is used to determine present date. timezone for all dates in the app is UTC. localization has not been implemented.
+
 
 
 ### Models
@@ -139,6 +145,6 @@ app can be run in debug mode from terminal by command: 'python3 manage.py runser
 
 ## Contact
 
-- **Email**: [shumittaher@outlook.com](mailto:shumittaher@outlook.com)
-- **GitHub**: [shumittaher](https://github.com/shumittaher)
+- **Email**:    [shumittaher@outlook.com](mailto:shumittaher@outlook.com)
+- **GitHub**:   [shumittaher](https://github.com/shumittaher)
 - **LinkedIn**: [Shumit Taher](https://www.linkedin.com/in/shumit-taher-42a96bb5/)
