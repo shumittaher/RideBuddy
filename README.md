@@ -32,6 +32,7 @@ The models user are as follows:
 
 ## Features
 ### Opening new trips and editing existing
+#### Creating Trips: 
 In order to open new trips, user needs to go to 'Make Trips' route from the nav bar. in this page, the user can find a button to open a form that will open new trip. In order to do it, they will need to fill this form to populate the following fields: 
 1. origin: where does this trip start? this is a dropdown populated from Locations model.
 2. destination: where does this trip finish? this is a dropdown populated from Locations model.
@@ -42,11 +43,16 @@ In order to open new trips, user needs to go to 'Make Trips' route from the nav 
 7. valid_till: this field is not visible to the user. it is auto populated with a specific based on a calculation that will be made based on what the user has chosen above. 
 8. trip_owner: another invisible field which is autopupulated. Will be filled based on who opened the trip. is linked to the user table.
 
+when user clicks the save button upon filling up this form, a new trip is opened.
 
+#### Editing Existing Trips:
+Once a trip is opened, it will show up in the same window. ie. the users can see all of their owned trups under the 'make trips' link. from here, they can also see, the requests to join each trips by clicking 'Requests' button. This will fetch a list of all the booking requests recieved against the trip from the server.
 
+trip owners have the option to approve or reject each request based on their own judgement and information given by the requester in the 'Message' column. This column only shows the starting of the message but the full message can be opened in a modal by clicking on the request's row in the table.
 
-### Creating Trips: 
+Once the booking request is Approved or Rejected (confirmation required through a modal), the row showing the booking request will change color to show the changed status as well as the number of open seats will change.
 
+Existing trips can be deleted by the owner by clicking the Delete button in the top right corner.
 
 #### Installation
 ##### Usage

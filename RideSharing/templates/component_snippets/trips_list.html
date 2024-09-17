@@ -1,6 +1,6 @@
 {% for trip in trips %}
 
-<div id="trips_box_{{trip.trip.id}}" class="border shadow boxes rounded w-100 mx-auto mb-2">
+<div id="trips_box_{{trip.trip.id}}" class="border shadow boxes rounded w-100 mx-auto mb-2 position-relative">
     <div class="d-flex justify-content-center">
 
         <div class="mx-2">
@@ -75,7 +75,11 @@
                                 {% if booking_trips %}
                                     Book a Spot
                                 {% else %}
-                                    Approvals
+                                    Requests
+
+                                    <button class="position-absolute btn btn-danger top-0 end-0">
+                                        D
+                                    </button>
                                 {% endif %}
                         </button>
                     </div>
@@ -100,6 +104,8 @@
     <div class="collapse" id="form_space_{{trip.trip.id}}">
         {% include 'component_snippets/load_box.html' with text='Loading' %}
     </div>
+
+
 
 </div>
 
