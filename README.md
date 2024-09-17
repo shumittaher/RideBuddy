@@ -2,7 +2,7 @@
 
 ## About the Project
 
-TThis web app addresses a socio-economic problem in Bangladesh, where I reside. In the capital city, Dhaka, many schools provide a bus service. However, most parents are unable to rely on the city's public transportation system to be safe or timely enough for their children's daily commute to and from school.
+This web app addresses a socio-economic problem in Bangladesh, where I reside. In the capital city, Dhaka, many schools provide a bus service. However, most parents are unable to rely on the city's public transportation system to be safe or timely enough for their children's daily commute to and from school.
 
 The app aims to solve this issue by creating a platform for carpooling among students from the same school who live in the same residential area. This solution not only helps reduce the stress of parents who do not own a car but also offers a safer alternative to public transport. Additionally, it benefits the city by reducing the number of cars on the road, contributing to less traffic and lower emissions.
 
@@ -32,16 +32,18 @@ The app has 7 different routes for pages in the urls.py. There are also 6 differ
 
 2 of the pages included required user to be logged in. There pages are for checking messages and making trips. if user is not logged in and clicks on these routes, they will be re-routed to login page as without a user id, these actions cannot be completed.
 
-#### login, logout, and register:
+#### Page generating URLS:
+
+##### login, logout, and register:
 The login, logout, and register views are for login, logout and register actions respectively. registering creates an account in user model.
 
-#### index:
+##### index:
 The 'index' view is the homepage of the app which will be visible then user opens the site and also in some cases user will be rerouted here. This page contains multiple sections. Django uses a template called index.html to render this. within this template, other sub-templates are loaded from component snippets sub folder in the templates folder. The FAQ section contains data from a model.
 
-#### mypage:
-the 'mypage' view is the page where the user can see messages pertaining to them. Django Paginator was used in order to create pages messages. there are 10 messages shown in each page. since there are two sides in the messages page for read and unread messages, these are filtered seperately in the view and sent to the front end. Another context called active_side is sent to communicate which side should be showed by default. This page requires users to be logged in
+##### mypage:
+the 'mypage' view is the page where the user can see messages pertaining to them. Django Paginator was used in order to create pages messages. There are 10 messages shown in each page. since there are two sides in the messages page for read and unread messages, these are filtered seperately in the view and sent to the front end. Another context called active_side is sent to communicate which side should be showed by default. This page requires users to be logged in
 
-#### make_trip:
+##### make_trip:
 This is the page mainly to be used by trip creators. New trips creation and editting of existing pages will be done from here. Hence, this page also requires user to be logged in. 
 
 In this view, Django send the 'make_trip.html' template to the browser. the context includes the trip making form as well as the active trips fetched from the relevant model for the active user. 
@@ -50,7 +52,14 @@ The form interface within the page is first rendered from Template: "form_snippe
 
 Active trips are determined by comparing present date against the date and duration of the trip when it was opened. timezone from django.utils is used to determine present date. timezone for all dates in the app is UTC. localization has not been implemented.
 
+##### find_trip:
+This will generate the page from which the user will find the correct trip and send booking request. Django sends the 'find_trip.html' template to the browser. In this template the placeholder for the trips' list remains empty. This is filled seperately agains a HTTP request.
 
+As context, only the search form is sent in this stage which is rendered through "form_snippets/form.html" to make the look similar to other forms.
+
+#### Fetch query routes
+##### give_trips:
+This route receives GET requests and responds rendered trips as JSON. 
 
 ### Models
 
