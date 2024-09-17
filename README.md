@@ -8,7 +8,7 @@ The app aims to solve this issue by creating a platform for carpooling among stu
 ## Distinctiveness and Complexity
 
 ### Distinctive Subject Matter
-This webapp is catered to a specfic issue related to Dhaka city in Bangladesh. It is a uniqe ride sharing app which is different from a social media or e-commerce website. The app utilizes 5 different models other than the Django built-in model for users. Some of the data in these models are auto generated while others are linked with each other.
+This webapp is catered to a specfic issue related to Dhaka city in Bangladesh. It is a uniqe ride sharing app which is different from a social media or an e-commerce website. The app utilizes 5 different models other than the Django built-in model for users. Some of the data in these models are auto generated while others are linked with each other.
 
 ### Front end
 In addition to the Django backend work, there are some javascript work done for the front-end to create some animations in the home page. bootstrap and javascript is utilized together to create a unique look for other pages. Django template is used for the forms.
@@ -46,13 +46,35 @@ In order to open new trips, user needs to go to 'Make Trips' route from the nav 
 when user clicks the save button upon filling up this form, a new trip is opened.
 
 #### Editing Existing Trips:
-Once a trip is opened, it will show up in the same window. ie. the users can see all of their owned trups under the 'make trips' link. from here, they can also see, the requests to join each trips by clicking 'Requests' button. This will fetch a list of all the booking requests recieved against the trip from the server.
+Once a trip is opened, it will show up in the same window. ie. the users can see all of their owned trips under the 'make trips' link. from here, they can also see, the requests to join each trips by clicking 'Requests' button. This will fetch a list of all the booking requests recieved against the trip from the server.
 
 trip owners have the option to approve or reject each request based on their own judgement and information given by the requester in the 'Message' column. This column only shows the starting of the message but the full message can be opened in a modal by clicking on the request's row in the table.
 
 Once the booking request is Approved or Rejected (confirmation required through a modal), the row showing the booking request will change color to show the changed status as well as the number of open seats will change.
 
 Existing trips can be deleted by the owner by clicking the Delete button in the top right corner.
+
+#### Booking a ride:
+
+In order to book a ride, a user needs to click the 'Book a Trip' link from the nav bar. Here, the user will be able to see all currently active trips. 
+
+user also has the option to filter the available trips based on origin and destination locations. The list of trips in the page will dynamically update based on what is chosen the this filter. Selecting none means all will be shown.
+
+After the requesting user finds a suitable trip from the list, they need to send a request for a spot form the form that can be opened from the 'Book a Spot' button. they need to add any details of the request in the comments field with there request and it will be visible for the trip owner's approval window.
+
+confirmation message will be shown once a request is sent successfully.
+
+#### Messeges
+
+At the moment, the system does not have any chat system between users. Hence, all messages are system generated. 
+
+There are following types of system generated messages in the system:
+1. To Trip Owners:
+* New Request for booking
+2. To booking reqeusters:
+* Request Approved
+* Request Denied / Deleted 
+
 
 #### Installation
 ##### Usage

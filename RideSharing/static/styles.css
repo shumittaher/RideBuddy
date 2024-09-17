@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(224, 235, 235);
+  background: linear-gradient(rgb(224, 235, 235) rgb(255, 226, 231));
 }
 
 .boxes {
