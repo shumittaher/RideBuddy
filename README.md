@@ -12,23 +12,43 @@ The app aims to solve this issue by creating a platform for carpooling among stu
 
 This webapp is catered to a specfic issue related to Dhaka city in Bangladesh. It is a unique ride sharing app which is different from a social media or an e-commerce website. 
 
+### Front end
+
+There are some javascript work done for the front-end to create some animations in the home page. bootstrap and javascript is utilized together to create a unique look for other pages. Django template is used for the forms to acheive similar look. 
+
+the Index page has a different look for the navbar if scroll position is on top of the page. this is used to make the navbar see through so that that mask underneath containing a curved line is visible. If user scrolls down, the navbar changes size and becomes visible. on small screen , the navbar collapses inside a burger button.
+
+The big button to create new trips in the 'Make Trips' page has an animation to open and close the form.
+
+
+
+Some of the forms do not reload the entire page, instead of form submission, javascript fetch is used to communicate with the server. The number of unread messages is also automatically fetched from the server upon user login through fetch.
+
+The webapp is fully mobile responsive. Details of the trips are shown in a card which is generated from a template. The button functions are different based on whether the trip owner is or some other user is viewing it.
+
 ### Back end 
 
 The app has 7 different routes for pages in the urls.py. There are also 6 different fetch query routes. 2 of them have path parameters. 
 
 2 of the pages included required user to be logged in. There pages are for checking messages and making trips. if user is not logged in and clicks on these routes, they will be re-routed to login page as without a user id, these actions cannot be completed.
 
-The app utilizes 5 different models other than the Django built-in model for users. Some of the data in these models are auto generated while others are linked with each other.
+#### login, logout, and register:
+The login, logout, and register views are for login, logout and register actions respectively. registering creates an account in user model.
 
-### Front end
+#### index:
+The 'index' view is the homepage of the app which will be visible then user opens the site and also in some cases user will be rerouted here. This page contains multiple sections. Django uses a template called index.html to render this. within this template, other sub-templates are loaded from component snippets sub folder in the templates folder. The FAQ section contains data from a model.
 
-In addition to the Django backend work, there are some javascript work done for the front-end to create some animations in the home page. bootstrap and javascript is utilized together to create a unique look for other pages. Django template is used for the forms.
+#### mypage:
+the 'mypage' view is the page where the user can see messages pertaining to them. Django Paginator was used in order to create pages messages. there are 10 messages shown in each page. since there are two sides in the messages page for read and unread messages, these are filtered seperately in the view and sent to the front end. Another context called active_side is sent to communicate which side should be showed by default. This page requires users to be logged in
 
-Some of the forms do not reload the entire page, instead of form submission, javascript fetch is used to communicate with the server. The number of unread messages is also automatically fetched from the server upon user login through fetch.
+#### make_trip:
+This is the page mainly to be used by trip creators. New trips creation and editting of existing pages will be done from here. Hence, this page also requires user to be logged in. 
 
-The webapp is fully mobile responsive. Details of the trips are shown in a card which is generated from a template. The button functions are different based on whether the trip owner is or some other user is viewing it.
+
 
 ### Models
+
+The app utilizes 5 different models other than the Django built-in model for users. Some of the data in these models are auto generated while others are linked with each other.
 
 The models user are as follows:
 
@@ -49,13 +69,21 @@ The models user are as follows:
 #### Creating Trips: 
 
 In order to open new trips, user needs to go to 'Make Trips' route from the nav bar. in this page, the user can find a button to open a form that will open new trip. In order to do it, they will need to fill this form to populate the following fields: 
+
 1. origin: where does this trip start? this is a dropdown populated from Locations model.
+
 2. destination: where does this trip finish? this is a dropdown populated from Locations model.
+
 3. description_text: Any other information needed to be communicated to the ride partners
+
 4. departure_time: at what time does the departure take place.
+
 5. open_seats: how any seats in the car available initially. 
+
 6. valid_for: trip opener (owner) needs to specify the period for which this trip will be valid. The choices are, Monthly, Quarterly, Semi-Annual, or Annual
+
 7. valid_till: this field is not visible to the user. it is auto populated with a specific based on a calculation that will be made based on what the user has chosen above. 
+
 8. trip_owner: another invisible field which is autopupulated. Will be filled based on who opened the trip. is linked to the user table.
 
 when user clicks the save button upon filling up this form, a new trip is opened.
@@ -105,7 +133,9 @@ This link has pagination implemented and messages are shown 10 per page only.
 
 This is a Django app with no other installations of python packages. It utilizes online resources such as bootstrap cdn, a fontawesome kit for icons and google fonts.
 
-Admin id is created with username 'Admin' and password 'Admin' for testing and demo purposes. '/admin' route gives access to the admin module.
+Admin id is created with username 'Admin' and password 'Admin' for testing and demo purposes. '/admin' route gives access to the admin module. users are free to create accounts from register route and use the app as required.
+
+app can be run in debug mode from terminal by command: 'python3 manage.py runserver' or 'python manage.py runserver' depeneding on the python version in the system.
 
 ## Contact
 
