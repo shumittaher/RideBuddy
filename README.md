@@ -8,9 +8,17 @@ The app aims to solve this issue by creating a platform for carpooling among stu
 
 ## Distinctiveness and Complexity
 
-### Distinctive Subject Matter
+### Subject Matter
 
-This webapp is catered to a specfic issue related to Dhaka city in Bangladesh. It is a uniqe ride sharing app which is different from a social media or an e-commerce website. The app utilizes 5 different models other than the Django built-in model for users. Some of the data in these models are auto generated while others are linked with each other.
+This webapp is catered to a specfic issue related to Dhaka city in Bangladesh. It is a unique ride sharing app which is different from a social media or an e-commerce website. 
+
+### Back end 
+
+The app has 7 different routes for pages in the urls.py. There are also 6 different fetch query routes. 2 of them have path parameters. 
+
+2 of the pages included required user to be logged in. There pages are for checking messages and making trips. if user is not logged in and clicks on these routes, they will be re-routed to login page as without a user id, these actions cannot be completed.
+
+The app utilizes 5 different models other than the Django built-in model for users. Some of the data in these models are auto generated while others are linked with each other.
 
 ### Front end
 
@@ -62,7 +70,7 @@ Once the booking request is Approved or Rejected (confirmation required through 
 
 Existing trips can be deleted by the owner by clicking the Delete button in the top right corner.
 
-#### Booking a ride:
+### Booking a ride:
 
 In order to book a ride, a user needs to click the 'Book a Trip' link from the nav bar. Here, the user will be able to see all currently active trips. 
 
@@ -72,7 +80,7 @@ After the requesting user finds a suitable trip from the list, they need to send
 
 confirmation message will be shown once a request is sent successfully.
 
-#### Messeges
+### Messeges
 
 At the moment, the system does not have any chat system between users. Hence, all messages are system generated. 
 
@@ -93,8 +101,14 @@ Once a message is opened, it will change color to indicate it was read and backe
 
 This link has pagination implemented and messages are shown 10 per page only.
 
-#### Installation
-###### Contact
-email: shumittaher@outlook.com
-github: shumittaher
-linkedin: https://www.linkedin.com/in/shumit-taher-42a96bb5/
+### Installation and setup
+
+This is a Django app with no other installations of python packages. It utilizes online resources such as bootstrap cdn, a fontawesome kit for icons and google fonts.
+
+Admin id is created with username 'Admin' and password 'Admin' for testing and demo purposes. '/admin' route gives access to the admin module.
+
+## Contact
+
+- **Email**: [shumittaher@outlook.com](mailto:shumittaher@outlook.com)
+- **GitHub**: [shumittaher](https://github.com/shumittaher)
+- **LinkedIn**: [Shumit Taher](https://www.linkedin.com/in/shumit-taher-42a96bb5/)
