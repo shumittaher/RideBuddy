@@ -70,10 +70,10 @@ At the moment, the system does not have any chat system between users. Hence, al
 
 There are following types of system generated messages in the system:
 1. To Trip Owners:
-* New Request for booking
+    * New Request for booking
 2. To booking reqeusters:
-* Request Approved
-* Request Denied / Deleted 
+    * Request Approved
+    * Request Denied / Deleted 
 
 
 #### Installation
