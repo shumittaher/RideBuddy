@@ -16,4 +16,5 @@ urlpatterns = [
     path("booking_request", views.booking_request),
     path("give_unread", views.give_unread),
     path("messages_put", views.messages_put),
+    path("delete_trip", views.delete_trip),
 ]

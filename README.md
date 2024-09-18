@@ -59,7 +59,21 @@ As context, only the search form is sent in this stage which is rendered through
 
 #### Fetch query routes
 ##### give_trips:
-This route receives GET requests and responds rendered trips as JSON. 
+This route receives GET requests and responds rendered trips as JSON. Here multiple parameters are considered before the response is rendered. various sides of the app utilizes with route to fetch different lists of trips which are populated in the browser. 
+
+the get requests body can contain multiple different parameters as: info_only, booking_trips, trip_id, spec_booking, 
+
+info_only is a boolean used to render the response in two different looks. the looks are taken from 'component_snippets/trips_list.html' or 'component_snippets/trips_list_info.html' based on the boolean value. the messages side uses the trips_list_info.html containing approval status
+
+booking_trips is another boolean value which determines whether the rendered trips will be shown on trip owners' side or booking requester's side. based on this, buttons' will look and function differently. both will generate from 'trips_list.html'
+
+trip_id will give the server a specific trips id. having a value here means the response will only contain one trip as a response.
+
+spec_booking refers to a specific booking request id which at this stage is forwarded directly to the client side to populate a data attibute. This becomes relevant at a later stage. 
+
+if specific trip id is not given, the view generates a list of trips, this is filtered based on origin_area, destination_area and active status and rendered list is sent as a response. default status for origin area and destination area is to select all and active only is set as true.
+
+In all cases the list goes through a function in utils.py called addremaining_spots in order to add the number of currently remaining spots in the trip. this is done becuase the opening number of seats is recorded in the Trips model while the number of approved bookings against that trip is recorded in the Spot_Bookings model. Hence calculation is required to figure out the current numeber of remaining spots.
 
 ### Models
 
@@ -153,6 +167,8 @@ Admin id is created with username 'Admin' and password 'Admin' for testing and d
 app can be run in debug mode from terminal by command: 'python3 manage.py runserver' or 'python manage.py runserver' depeneding on the python version in the system.
 
 ## Contact
+
+For more information or any inquiries, feel free to reach out:
 
 - **Email**:    [shumittaher@outlook.com](mailto:shumittaher@outlook.com)
 - **GitHub**:   [shumittaher](https://github.com/shumittaher)

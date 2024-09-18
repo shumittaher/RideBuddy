@@ -313,14 +313,26 @@ def messages_put(request):
     if request.method == 'PUT':
         put_data = json.loads(request.body)
 
-    msg_id = put_data["message_id"]
+        msg_id = put_data["message_id"]
 
-    message = Messages.objects.get(id = msg_id)
-    message.read = True
+        message = Messages.objects.get(id = msg_id)
+        message.read = True
 
-    message.save()
+        message.save()
 
-    return JsonResponse({
-            'id': message.id,
-            'read': message.read,
+        return JsonResponse({
+                'id': message.id,
+                'read': message.read,
+            })
+
+def delete_trip(request):
+    if request.method == 'PUT':
+        put_data = json.loads(request.body)
+
+        trip_id = put_data["trip_id"]
+        trip = Trips.objects.filter(pk=trip_id)
+        trip.delete()
+
+        return JsonResponse({
+            'deleted' : trip_id
         })

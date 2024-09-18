@@ -1,5 +1,7 @@
 body {
-  background: linear-gradient(rgb(224, 235, 235) rgb(255, 226, 231));
+  background: linear-gradient(rgb(224, 235, 235), rgb(255, 226, 231));
+  overflow-x: hidden;
+  min-height: 100svh;
 }
 
 .boxes {
@@ -244,6 +246,38 @@ footer i {
 footer .social-icons a {
   color: #ffffff;
   margin-right: 1rem;
+}
+
+.tripsbox:hover .tripsbox_delbutton {
+  width: 40px; /* Adjust width */
+  padding: 5px; /* Adjust padding */
+  border: 1px solid #dc3545; /* Add border for visibility */
+}
+
+.tripsbox_delbutton {
+  width: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.deleted {
+  max-height: 320px;
+  overflow: hidden;
+  animation: delete_remove 0.6s;
+}
+
+@keyframes delete_remove {
+  75% {
+    max-height: 320px;
+    transform: translateX(100dvw);
+  }
+  100% {
+    transform: translateX(100dvw);
+    max-height: 0px;
+    padding: 0;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

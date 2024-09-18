@@ -25,3 +25,40 @@ async function fetch_bookingreq_forms(trip_id, request_form, spec_booking) {
         console.error('Failed to fetch details', response.statusText);
     }
 }
+
+function handle_delete_trip(event) {
+    
+    trip_id = event.currentTarget.dataset.targettripid
+    
+    fetch('/delete_trip', {
+        method: 'PUT',
+        headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrf
+        },
+        body: JSON.stringify({
+            'trip_id' : trip_id,
+        })
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); 
+    })
+    .then(data => {
+        
+
+        const tripBox = document.getElementById(`trips_box_${data.deleted}`)
+
+        tripBox.classList.add('deleted')
+        
+        tripBox.addEventListener('animationend', ()=>{
+            tripBox.remove();     
+        })
+
+    })
+    .catch(error => {
+        console.error('There was an error:', error);
+    })
+
+}
