@@ -10,7 +10,7 @@ The app aims to solve this issue by creating a platform for carpooling among stu
 
 ### Subject Matter
 
-This webapp is catered to a specfic issue related to Dhaka city in Bangladesh. It is a unique ride sharing app which is different from a social media or an e-commerce website. 
+This webapp has been created as the capstone project of CS50W which is run by HarvardX and as per the project instruction is not a social media or an e-commerce site. This is catered to a specfic issue related to Dhaka city in Bangladesh. It is a unique ride sharing app geared towards school goers in Dhaka. 
 
 ### Front end
 
@@ -20,11 +20,15 @@ the Index page has a different look for the navbar if scroll position is on top 
 
 The big button to create new trips in the 'Make Trips' page has an animation to open and close the form.
 
-
-
 Some of the forms do not reload the entire page, instead of form submission, javascript fetch is used to communicate with the server. The number of unread messages is also automatically fetched from the server upon user login through fetch.
 
 The webapp is fully mobile responsive. Details of the trips are shown in a card which is generated from a template. The button functions are different based on whether the trip owner is or some other user is viewing it.
+
+When a user logs in, the number of his unread message are shown in a badge next to him username in the navbar provided it is more than zero.
+
+The trips that are opened, from a trip owners perspective and from a booking requesters perspective are shown using the same template. however, the button appears different based on the context from where it is accessed. when trip owner sees it, the button is for approving booking requests. Versus, when the booking requester user sees it, the button is for sending a booking request. 
+
+When these buttons are clicked they send a fetch request to populate the placeholder below in the collapsed area. The button sends the fetch request to different routes based on the circumstances. this is explained further in the explanation of the routes below.
 
 ### Back end 
 
@@ -80,13 +84,39 @@ spec_booking refers to a specific booking request id which at this stage is forw
 
 The trips list is shown as boxes for each trip in the front end. the boxes contain collapsable section which is initially populated by a placeholder called from 'load_box.html'. depending on whether this box is being shown to the trip owner or booking requester, this placeholder is replaced by either a subform containing all the booking request received against the trip so far or by a form to request for a booking. this is done through another fetch which runs when the collapsed section is opened. spec_booking is sent in this context to later inform that fetch whether to fetch a single booking request or a list of all booking requests. 
 
-##### give_bookingreq_forms/<int:trip_id>:
+##### give_bookingreq_forms:
 
 This route supplies a form through a user can send a booking request for a specific trip. This form gets prepopulated with user id who is logged in and trip id which can be extracted by checking from which trip box this request was send. the pre-population of this data happens through a function in utils.py called make_booking_form. 
 
 The form has a dropdown field to specify how many sits are to be requested. The form is created dynamically to only include options up to the number of sits that are available.
 
-#####
+##### give_bookingreqs_list:
+
+This route supplies the list of booking requests. This gets populated in the trips' box when the trip owners open them. This also supplies either list of all booking requests against a trip or a specific booking request depending on the fetch query mentioning a 'spec_booking'. The reason for this is, when the trip owner is trying to access this from the messages window, we wanted to only show the specific booking request against which the message was generated.
+
+The list is rendered from template 'bookingreq_list.html' and send as a json response.
+
+##### booking_request:
+
+This route records new booking requests and updates the model against a POST request or alternatively can update status of approval of an existing booking request against a PUT. It also generates a message in the Message model. Content of the message depends on the POST or PUT request. The messege sending is done through send_message function in utils.py.
+
+When the booking request is created, in the model the apporval status is kept as false. It is stored in a boolean field. If it is approved, the boolean field is updated to be true. If the request is declined through the PUT, the booking req is deleted all together from the model.
+
+When approving, it is checked whether sufficient number of seats are available in the trip first. this is done through calling the find_remaining_spots from utils.
+
+When booking request is successful, approved or rejected or cannot be approved due to insufficient seats, the jason response contains that information for update in the frontend.
+
+##### give_unread: 
+
+This route provides the number of unread messages from the Messages model for the logged in user to be showed in a badge against the user name that appears in the navbar. this fetch is autogenerated when user logs in and the username is displayed. if number of unread messages is more than 99 then the route will simple return '99+'.
+
+##### messages_put:
+
+This route can be used to change the status of the message from 'unread' to 'read'.
+
+##### delete_trip: 
+
+this route receives a PUT request and deletes a trip as per the trip number given in the request body.
 
 ### Models
 

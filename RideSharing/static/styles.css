@@ -1,7 +1,7 @@
 body {
   background: linear-gradient(rgb(224, 235, 235), rgb(255, 226, 231));
   overflow-x: hidden;
-  min-height: 100svh;
+  min-height: 100vh;
 }
 
 .boxes {
