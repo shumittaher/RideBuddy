@@ -28,7 +28,7 @@ The webapp is fully mobile responsive. Details of the trips are shown in a card 
 
 ### Back end 
 
-The app has 7 different routes for pages in the urls.py. There are also 6 different fetch query routes. 2 of them have path parameters. 
+The app has 7 different routes for pages in the urls.py. There are also 7 different fetch routes. 2 of them have path parameters. 
 
 2 of the pages included required user to be logged in. There pages are for checking messages and making trips. if user is not logged in and clicks on these routes, they will be re-routed to login page as without a user id, these actions cannot be completed.
 
@@ -59,6 +59,7 @@ As context, only the search form is sent in this stage which is rendered through
 
 #### Fetch query routes
 ##### give_trips:
+
 This route receives GET requests and responds rendered trips as JSON. Here multiple parameters are considered before the response is rendered. various sides of the app utilizes with route to fetch different lists of trips which are populated in the browser. 
 
 the get requests body can contain multiple different parameters as: info_only, booking_trips, trip_id, spec_booking, 
@@ -69,11 +70,23 @@ booking_trips is another boolean value which determines whether the rendered tri
 
 trip_id will give the server a specific trips id. having a value here means the response will only contain one trip as a response.
 
-spec_booking refers to a specific booking request id which at this stage is forwarded directly to the client side to populate a data attibute. This becomes relevant at a later stage. 
-
 if specific trip id is not given, the view generates a list of trips, this is filtered based on origin_area, destination_area and active status and rendered list is sent as a response. default status for origin area and destination area is to select all and active only is set as true.
 
 In all cases the list goes through a function in utils.py called addremaining_spots in order to add the number of currently remaining spots in the trip. this is done becuase the opening number of seats is recorded in the Trips model while the number of approved bookings against that trip is recorded in the Spot_Bookings model. Hence calculation is required to figure out the current numeber of remaining spots.
+
+Going through the function number of remaining spots against each trip is included in a dict and together, all such trips and there remaining spots is placed in a list which is then sent to the front end as the context. 
+
+spec_booking refers to a specific booking request id which at this stage is forwarded directly to the client side to populate a data attibute. This becomes relevant at a later stage as follows: 
+
+The trips list is shown as boxes for each trip in the front end. the boxes contain collapsable section which is initially populated by a placeholder called from 'load_box.html'. depending on whether this box is being shown to the trip owner or booking requester, this placeholder is replaced by either a subform containing all the booking request received against the trip so far or by a form to request for a booking. this is done through another fetch which runs when the collapsed section is opened. spec_booking is sent in this context to later inform that fetch whether to fetch a single booking request or a list of all booking requests. 
+
+##### give_bookingreq_forms/<int:trip_id>:
+
+This route supplies a form through a user can send a booking request for a specific trip. This form gets prepopulated with user id who is logged in and trip id which can be extracted by checking from which trip box this request was send. the pre-population of this data happens through a function in utils.py called make_booking_form. 
+
+The form has a dropdown field to specify how many sits are to be requested. The form is created dynamically to only include options up to the number of sits that are available.
+
+#####
 
 ### Models
 
@@ -125,7 +138,7 @@ trip owners have the option to approve or reject each request based on their own
 
 Once the booking request is Approved or Rejected (confirmation required through a modal), the row showing the booking request will change color to show the changed status as well as the number of open seats will change.
 
-Existing trips can be deleted by the owner by clicking the Delete button in the top right corner.
+Existing trips can be deleted by the owner by clicking the Delete button that appears when they mouse over the trip in this window.
 
 ### Booking a ride:
 
@@ -142,8 +155,10 @@ confirmation message will be shown once a request is sent successfully.
 At the moment, the system does not have any chat system between users. Hence, all messages are system generated. 
 
 There are following types of system generated messages in the system:
+
 1. To Trip Owners:
     * New Request for booking
+
 2. To booking reqeusters:
     * Request Approved
     * Request Denied / Deleted 
