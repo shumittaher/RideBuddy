@@ -42,6 +42,7 @@
             <div class="mt-3 d-sm-flex  justify-content-between">
                 <div class="me-5 d-flex flex-column" 
                 style="min-width: fit-content;
+                flex-grow: 1;
                 ">
                     <h6>
                         Departure Time: <span class="text-primary">{{trip.trip.departure_time}}</span>
@@ -55,7 +56,8 @@
                 style="
                 display: flex; 
                 flex-wrap: wrap;
-                flex-grow: 1;
+                flex-basis: 230px;
+                flex-shrink: 1;
                 gap: 2px;"
                 >
 
@@ -100,11 +102,10 @@
     <div class="collapse" id="comments_space_{{trip.trip.id}}">
         
         <div class="pt-3 px-2">
-
-            {% if trip.desciption_text %}
-            {{trip.description_text}}
+            {% if trip.trip.description_text %}
+                {{trip.trip.description_text}}
             {% else %}
-            No further details available
+                No further details available
             {% endif %}
             
         </div>

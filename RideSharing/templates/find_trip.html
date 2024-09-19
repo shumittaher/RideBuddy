@@ -53,7 +53,7 @@
 
     async function fetch_trips(area_code = '', area_code_dest = ''){
 
-        const response = await fetch(`give_trips?origin_area=${area_code}&destination_area=${area_code_dest}&booking_trips=true`)
+        const response = await fetch(`give_trips?origin_area=${area_code}&destination_area=${area_code_dest}&booking_trips=true&filter_self=true`)
         if (response.ok) {
             const updatedTrips = await response.json();
             updateTripsList(updatedTrips.rendered_trips); 

@@ -152,6 +152,7 @@ def give_trips(request):
         
         else:                                                       # filter process
             filter_dict = {}
+            filter_self = request.GET.get('filter_self') == 'true'
             origin_area = request.GET.get('origin_area', '')
             destination_area = request.GET.get('destination_area', '')
             active_only = request.GET.get('active_only', True)
@@ -169,7 +170,10 @@ def give_trips(request):
                 filter_dict["valid_till__gte"] = today
 
             queryset = queryset.filter(**filter_dict).order_by('departure_time')
-        
+
+            if filter_self:
+                queryset = queryset.exclude(trip_owner_id=request.user.id)
+
         trips = addremaining_spots(queryset)                        # add remaining spots to the tripset
         
         if not info_only:

@@ -14,7 +14,7 @@ This webapp has been created as the capstone project of CS50W which is run by Ha
 
 ### Front end
 
-There are some javascript work done for the front-end to create some animations in the home page. bootstrap and javascript is utilized together to create a unique look for other pages. Django template is used for the forms to acheive similar look. 
+There are some javascript work done for the front-end to create some animations in the home page. the hero section has a carousal and a floting animation. bootstrap and javascript is utilized together to create a unique look for other pages. Django template is used for the forms to acheive similar look for each of them. 
 
 the Index page has a different look for the navbar if scroll position is on top of the page. this is used to make the navbar see through so that that mask underneath containing a curved line is visible. If user scrolls down, the navbar changes size and becomes visible. on small screen , the navbar collapses inside a burger button.
 
@@ -76,7 +76,7 @@ booking_trips is another boolean value which determines whether the rendered tri
 
 trip_id will give the server a specific trips id. having a value here means the response will only contain one trip as a response.
 
-if specific trip id is not given, the view generates a list of trips, this is filtered based on origin_area, destination_area and active status and rendered list is sent as a response. default status for origin area and destination area is to select all and active only is set as true.
+if specific trip id is not given, the view generates a list of trips, this is filtered based on origin_area, destination_area and active status and rendered list is sent as a response. default status for origin area and destination area is to select all and active only is set as true. Also, in case this request comes from the page for finding trips for booking requests, trips made by the active user is filtered out.
 
 In all cases the list goes through a function in utils.py called addremaining_spots in order to add the number of currently remaining spots in the trip. this is done becuase the opening number of seats is recorded in the Trips model while the number of approved bookings against that trip is recorded in the Spot_Bookings model. Hence calculation is required to figure out the current numeber of remaining spots.
 
