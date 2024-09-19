@@ -44,8 +44,8 @@ def logout_view(request):
 
 def register(request):
     if request.method == "POST":
-        username = request.POST["username"]
-        email = request.POST["email"]
+        username = request.POST["username"].strip()
+        email = request.POST["email"].strip()
 
         # Ensure password matches confirmation
         password = request.POST["password"]
@@ -63,6 +63,11 @@ def register(request):
             return render(request, "register.html", {
                 "message": "Username already taken."
             })
+        except ValueError:
+            return render(request, "register.html", {
+                "message": "Username or Email is missing."
+            })
+        
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
