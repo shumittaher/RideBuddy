@@ -174,11 +174,11 @@ Existing trips can be deleted by the owner by clicking the Delete button that ap
 
 ### Booking a ride
 
-In order to book a ride, a user needs to click the 'Book a Trip' link from the nav bar. Here, the user will be able to see all currently active trips. 
+In order to book a ride, a user needs to click the 'Book Trip' link from the nav bar. Here, the user will be able to see all currently active trips. 
 
 user also has the option to filter the available trips based on origin and destination locations. The list of trips in the page will dynamically update based on what is chosen the this filter. Selecting none means all will be shown.
 
-After the requesting user finds a suitable trip from the list, they need to send a request for a spot form the form that can be opened from the 'Book a Spot' button. they need to add any details of the request in the comments field with there request and it will be visible for the trip owner's approval window.
+After the requesting user finds a suitable trip from the list, they need to send a request for a spot form the form that can be opened from the 'Book Spot' button. they need to add any details of the request in the comments field with there request and it will be visible for the trip owner's approval window.
 
 confirmation message will be shown once a request is sent successfully.
 
