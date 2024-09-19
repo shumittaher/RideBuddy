@@ -1,0 +1,40 @@
+{% if user.is_authenticated %}
+
+                <li class="nav-item">    
+                    <a class="nav-link" href="{% url 'mypage' %} ">
+                        <div class="position-relative">
+                            <i class="fa-solid fa-user m-1"></i>
+                            <strong> 
+                                {{ user.username }} 
+                            </strong>
+                            <span
+                                class="unread_messagecount_space visually-hidden position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
+                            </span>
+                        </div>
+                    </a>
+                </li>
+                        
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">
+                        Logout 
+                        <i class="fa-solid fa-right-from-bracket m-1"></i>
+                    </a>
+                </li>
+
+                {% else %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">
+                        <i class="fa-solid fa-right-to-bracket m-1"></i>
+                        Login
+                    </a>
+                </li>                            
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">
+                        <i class="fa-solid fa-id-card m-1"></i>
+                        Register
+                    </a>
+                </li>
+
+                {% endif %}

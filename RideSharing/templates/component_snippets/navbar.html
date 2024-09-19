@@ -18,60 +18,25 @@ style="z-index: 100;">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarToggler">
+        <div class="d-none d-lg-flex w-100">
 
-            <ul class="navbar-nav nav-underline me-auto mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'make_trip' %}">Make Trips</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'find_trip' %}">Book a Trip</a>
-                </li>
-
+            <ul class="navbar-nav nav-underline me-auto mb-0">
+                {% include 'component_snippets/navbar_links_set1.html' %}
             </ul>
 
             <ul class="navbar-nav nav-underline">
 
-                {% if user.is_authenticated %}
+                {% include 'component_snippets/navbar_links_set2.html' %}
+            </ul>
+        </div>
 
-                <li class="nav-item">    
-                    <a class="nav-link" href="{% url 'mypage' %} ">
-                        <div class="position-relative">
-                            <i class="fa-solid fa-user"></i>
-                            <strong> 
-                                {{ user.username }} 
-                            </strong>
-                            <span id="unread_messagecount_space"
-                                class="visually-hidden position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
-                            </span>
-                        </div>
-                    </a>
-                </li>
-                        
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">
-                        Logout 
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                    </a>
-                </li>
-
-                {% else %}
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Login</a>
-                </li>                            
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
-                </li>
-
-                {% endif %}
+        <div class="rounded collapse navbar-collapse bg-secondary" id="navbarToggler" 
+        style="color: whitesmoke;">
+            <ul class="navbar-nav my-3 mx-4 align-items-end flex-column d-flex d-lg-none">
+                {% include 'component_snippets/navbar_links_set1.html' %}
+                {% include 'component_snippets/navbar_links_set2.html' %}
 
             </ul>
-
         </div>
     </div>
 </nav>
