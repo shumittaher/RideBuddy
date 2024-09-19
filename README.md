@@ -32,6 +32,24 @@ When these buttons are clicked they send a fetch request to populate the placeho
 
 There are multiple different fetch queries running accross the app. All of them requires a CSRF token to communicate with the django server. In order to do this, in the 'layout.html' (which runs accross every page of the app) the csrf token is saved in a const called csrf. This is then used by all fetch queries.
 
+#### Seperate JS files:
+
+##### animations.js
+
+This JS file creates the big button animaiton when opening the form for making new trips. It changes color through changing the button color class from bootstrap and changes the width of the div. also creates an event listener on this animation end to change the animation direction to reverse to that the reverse animation takes place when the button is clicked again
+
+##### booking_request_approve.js
+
+Since booking request related POST and PUT is sent from multiple different pages, this seperate JS was created so that same function can be called from all of them. In addition to these fetch request, the resulting look changes are also handled through few functions in the file based on response from server
+
+##### fetching_booking_request.js
+
+This file fetches the booking request form or the request list and places inside the collpased section of the trip box. since action also takes place from multiple different pages. hence seperate file was created for this.
+
+##### navbar.js
+
+Navbar related animation and fetch requests. Such as fetching number of unread messages and populating the badge over the username. It also changes the size and style of the navbar based on scroll location.
+
 ### Back end 
 
 The app has 7 different routes for pages in the urls.py. There are also 7 different fetch routes. 2 of them have path parameters. 
@@ -135,6 +153,16 @@ The models user are as follows:
 4. Messages: When a booking request is made and also when a booking is accepted or rejected an auto generated message is created for informing the relevant party. These messages are stored in the table.
 
 5. FAQ: This table contains questions and answers for the FAQ section. Can be changed from admin module only.
+
+### Forms
+
+There are 3 model forms in the app. 
+
+TripsForm is created to open new trips. there is a valid_for choice field which gives the user a few drop down options. in the front end, the choice of this field populates another field which then gets recorded in the model.
+
+BookingRequestCommentBox is the modelform to request booking requests and record the request in the spot bookings model. When this model form is initialized, a kwarg is sent (from function make_booking_form located in utils.py) called open_seats which creates a choice field which only gives choice for the number of open seats available for the Trip.
+
+LocationSearchForm is another model form which creates two dropdowns from same model Locations. this is the form used to filter to find trips.
 
 ## Features
 

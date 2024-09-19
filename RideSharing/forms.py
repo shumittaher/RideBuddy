@@ -88,8 +88,6 @@ class BookingRequestCommentBox(forms.ModelForm):
                 }
             )
         )
-
-
         
 class LocationSearchForm(forms.ModelForm):
 
