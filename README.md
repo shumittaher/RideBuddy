@@ -30,6 +30,8 @@ The trips that are opened, from a trip owners perspective and from a booking req
 
 When these buttons are clicked they send a fetch request to populate the placeholder below in the collapsed area. The button sends the fetch request to different routes based on the circumstances. this is explained further in the explanation of the routes below.
 
+There are multiple different fetch queries running accross the app. All of them requires a CSRF token to communicate with the django server. In order to do this, in the 'layout.html' (which runs accross every page of the app) the csrf token is saved in a const called csrf. This is then used by all fetch queries.
+
 ### Back end 
 
 The app has 7 different routes for pages in the urls.py. There are also 7 different fetch routes. 2 of them have path parameters. 
@@ -170,7 +172,7 @@ Once the booking request is Approved or Rejected (confirmation required through 
 
 Existing trips can be deleted by the owner by clicking the Delete button that appears when they mouse over the trip in this window.
 
-### Booking a ride:
+### Booking a ride
 
 In order to book a ride, a user needs to click the 'Book a Trip' link from the nav bar. Here, the user will be able to see all currently active trips. 
 
