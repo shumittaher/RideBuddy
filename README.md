@@ -211,6 +211,10 @@ This is a Django app with no other installations of python packages. It utilizes
 
 Admin id is created with username 'Admin' and password 'Admin' for testing and demo purposes. '/admin' route gives access to the admin module. users are free to create accounts from register route and use the app as required.
 
+Other accounts for testing and demo:
+username: User1, password: abc123
+username: User2, password: abc123
+
 app can be run in debug mode from terminal by command: 'python3 manage.py runserver' or 'python manage.py runserver' depeneding on the python version in the system.
 
 ## Contact
