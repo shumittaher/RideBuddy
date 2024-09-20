@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     unread_messagecount_space = document.getElementsByClassName('unread_messagecount_space')
 
-    if (unread_messagecount_space) {
+    if (unread_messagecount_space.length > 0) {
         update_unread_looks()
     }
 })
@@ -20,7 +20,6 @@ async function update_unread_looks() {
     spaces = [...unread_messagecount_space]
     spaces.forEach((space)=>{
 
-        console.log(space)
         space.innerText = unread_count
         
         if (unread_count){
