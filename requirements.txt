@@ -11,7 +11,6 @@ cryptography==3.4.8
 cs50==9.3.4
 dbus-python==1.2.18
 distro==1.7.0
-distro-info==1.1+ubuntu0.1
 Django==5.0.4
 django-webpack-loader==3.1.0
 djangorestframework==3.15.2
