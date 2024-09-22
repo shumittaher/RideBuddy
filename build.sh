@@ -1,6 +1,8 @@
 #!/bin/bash
 set -o errexit  # Exit on error
 
+apt-get update && apt-get install -y pkg-config libcairo2-dev
+
 # Upgrade pip
 pip install --upgrade pip
 
