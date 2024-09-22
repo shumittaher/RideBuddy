@@ -19,7 +19,6 @@ Flask==3.0.2
 Flask-Session==0.6.0
 greenlet==3.0.3
 gunicorn==23.0.0
-gyp==0.1
 h11==0.14.0
 httplib2==0.20.2
 idna==3.6
