@@ -12,7 +12,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 
 # Collect static files
-python3 manage.py collectstatic --no-input
+python manage.py collectstatic --no-input
 
 # Apply database migrations
-python3 manage.py migrate
+python manage.py migrate
