@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_0!9zo5u!l2(4+5xu)_sbj5=+e=5gr=asb=sd=9$e_&v4ahl#='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['ridebuddy-hv9j.onrender.com', 'localhost', '127.0.0.1']
 
